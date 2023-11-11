@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ApplicantTrackingPlatform.DL
 {
@@ -21,6 +22,36 @@ namespace ApplicantTrackingPlatform.DL
             addressList = new List<AddressBL>();
            
         }
+
+        public int GetAddressId(string country, string state, string street)
+        {
+            int ID = -1;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT ID FROM Address WHERE Country = @Country AND State = @State AND StreetNo = @StreetNo";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Country", country);
+                    command.Parameters.AddWithValue("@State", state);
+                    command.Parameters.AddWithValue("@StreetNo", street);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            ID = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+
+            return ID;
+        }
+
         public AddressBL GetAddressByIdfromList(int id)
         {
             return addressList.FirstOrDefault(s => s.Id == id);
@@ -63,7 +94,7 @@ namespace ApplicantTrackingPlatform.DL
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM Address", connection);
+                SqlCommand command = new SqlCommand("SELECT * FROM Address where Active=1", connection);
                 command.CommandType = CommandType.Text; // Use CommandType.Text for plain SQL SELECT
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -90,35 +121,54 @@ namespace ApplicantTrackingPlatform.DL
         {
             addressId = 0;
             error = "";
+            try {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("INSERT INTO Address (Country, State, StreetNo) OUTPUT INSERTED.ID VALUES (@Country, @State, @StreetNo)", connection);
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+                    // Assuming "address" is an instance of your Address class
+                    command.Parameters.AddWithValue("@Country", address.Country);
+                    command.Parameters.AddWithValue("@State", address.State);
+                    command.Parameters.AddWithValue("@StreetNo", address.StreetNo);
+
+                    // Execute the SQL command and retrieve the newly created address ID
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out addressId))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        // Handle the case where the insertion failed or the addressId couldn't be retrieved.
+                        error = "Insertion failed or addressId couldn't be retrieved.";
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Address (Country, State, StreetNo) OUTPUT INSERTED.ID VALUES (@Country, @State, @StreetNo)", connection);
-
-                // Assuming "address" is an instance of your Address class
-                command.Parameters.AddWithValue("@Country", address.Country);
-                command.Parameters.AddWithValue("@State", address.State);
-                command.Parameters.AddWithValue("@StreetNo", address.StreetNo);
-
-                // Execute the SQL command and retrieve the newly created address ID
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out addressId))
+                // Handle exception and set error message
+                error = "Error updating address in database: " + ex.Message;
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    return true;
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection);
+                    //  command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FunctionName", "UpdateAddress");
+                    command.Parameters.AddWithValue("@ExceptionMessage", error);
+
+                    // Execute the stored procedure
+                    command.ExecuteNonQuery();
                 }
-                else
-                {
-                    // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                    error = "Insertion failed or addressId couldn't be retrieved.";
-                    return false;
-                }
+                return false;
+
             }
         }
 
         // Update an existing address
-        public void UpdateAddress(AddressBL previousUpdate, AddressBL newUpdate, out string error)
+        public bool UpdateAddress(int aid, string country,string state,string street, out string error)
         {
             error = "";
             try
@@ -126,22 +176,48 @@ namespace ApplicantTrackingPlatform.DL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("UPDATE Address SET Country = @Country, State = @State, StreetNo = @StreetNo WHERE ID = @ID", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ID", previousUpdate.Id);
-                    command.Parameters.AddWithValue("@Country", newUpdate.Country);
-                    command.Parameters.AddWithValue("@State", newUpdate.State);
-                    command.Parameters.AddWithValue("@StreetNo", newUpdate.StreetNo);
+                    SqlCommand command = new SqlCommand("UPDATE Address SET updatedAT=GetDate(), Country = @Country, State = @State, StreetNo = @StreetNo WHERE ID = @ID", connection);
+                  //  command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ID", aid);
+                    command.Parameters.AddWithValue("@Country", country);
+                    command.Parameters.AddWithValue("@State",state);
+                    command.Parameters.AddWithValue("@StreetNo",street);
 
                     // Execute the stored procedure
                     command.ExecuteNonQuery();
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 // Handle exception and set error message
                 error = "Error updating address in database: " + ex.Message;
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection);
+                    //  command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FunctionName", "UpdateAddress");
+                    command.Parameters.AddWithValue("@ExceptionMessage", error);
+
+                    // Execute the stored procedure
+                    command.ExecuteNonQuery();
+                }
+                return false;
+
             }
+        }
+
+        public AddressBL GetAddressbyId(int id)
+        {
+            foreach(AddressBL a in addressList)
+            {
+                if(id==a.Id)
+                {
+                    return a;
+                }
+            }
+            return null;
         }
     }
 }

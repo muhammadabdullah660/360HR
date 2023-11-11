@@ -14,3 +14,10 @@ C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTracki
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.HRManagerMenu.resources
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.DisplayJob.resources
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.Job.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.Applicant.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.Recruiter.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.ManagerProfile.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddJob.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.ViewJob.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddProject.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.ViewProject.resources

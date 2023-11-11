@@ -22,32 +22,71 @@ namespace ApplicantTrackingPlatform.Forms
         {
 
         }
+       
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             string username = textBox1.Text;
             string password = textBox2.Text;
             PersonDL person = new PersonDL();
             string role = person.SignIn(username, password);
-            this.Close();
+            int pid = person.getPersonId(username, password);
+
             if (role != null)
-            {
-                //  int personId = person.SearchPersonId(username, password);
-                // Handle successful sign-in, e.g., show a message box with the role
-                MessageBox.Show("Role: " + role, "Sign In Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+            {// Create a list of all the open Home pages.
+                var openHomeForms = Application.OpenForms.OfType<Home>().ToList();
+
+                // Iterate over the list and close each form.
+                foreach (Home form in openHomeForms)
+                {
+                    form.Hide();
+                }
+                var newHomePage = new Home(role, pid);
+                newHomePage.Show();
+
+
+                // Handle successful sign-in, e.g., show a message box with the role.
+                //  MessageBox.Show("Role: " + role, "Sign In Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+
+                // Handle successful sign-in, e.g., show a message box with the role.
+                //  MessageBox.Show("Role: " + role, "Sign In Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+
             else
             {
+                
                 MessageBox.Show("Error in finding role");
+                
             }
-            HRManagerMenu m = new HRManagerMenu();
-            m.Show();
+            this.Hide();
+
+           
         }
 
         private void SignIn_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void SignIn_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!checkBox1.Checked) // Assuming 'checkBox1' is the name of your CheckBox
+            {
+                textBox2.PasswordChar = '*'; // Set the PasswordChar to a character like '*' to hide the text
+            }
+            else
+            {
+                textBox2.PasswordChar = '\0'; // Set PasswordChar to '\0' to show the text in plain text
+            }
         }
     }
 }

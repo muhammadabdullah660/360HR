@@ -36,7 +36,7 @@ namespace ApplicantTrackingPlatform.BL
                 this.Lastname = lastname;
                 this.Email = email;
                 this.Password = password;
-            
+                this.Gender = gender;
                 this.RoleId = roleId;
                 this.AddressId = addressId;
                 this.MobileNumber = mobileNumber;

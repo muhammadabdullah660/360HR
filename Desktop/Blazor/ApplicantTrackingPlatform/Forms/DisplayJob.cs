@@ -18,27 +18,77 @@ namespace ApplicantTrackingPlatform.Forms
             InitializeComponent();
         }
         #region Properties
-        private string name;
-        private string description;
-        private string country;
+        private string companyANme;
+        private string companydescription;
+        private string comapnyContact;
+        private string jobName;
+        private string jobDescription;
+
         [Category("Custom props")]
-        public string Name1
+        public string CompanyANme
         {
-            get { return name; }
-            set { name = value; lbltitle.Text = value; }
+            get { return companyANme; }
+            set { companyANme = value; lblcom.Text = value; }
         }
         [Category("Custom props")]
-        public string Description 
-        { get { return description; }
-            set { description = value; txtdes.Text = value; }        }
+        public string Companydescription 
+        { get { return companydescription; }
+            set { companydescription = value; label1.Text = value; }        }
         [Category("Custom props")]
-        public string Country 
+        public string CompanyContact 
         {
-            get {return  country; }
-            set { country = value; lblcom.Text = value; }
+            get {return comapnyContact; }
+            set { comapnyContact = value; label2.Text = value; }
         }
+        [Category("Custom props")]
+        public string JobName
+        {
+            get { return jobName; }
+            set { jobName = value; lbltitle.Text = value; }
+        }
+        [Category("Custom props")]
+        public string JobDescription
+        {
+            get { return jobDescription; }
+            set { jobDescription = value; txtdes.Text = value; }
+        }
+
         #endregion
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SignIn im = new SignIn();
+            im.ShowDialog();
+        }
 
+        private void txtdes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayJob_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbltitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

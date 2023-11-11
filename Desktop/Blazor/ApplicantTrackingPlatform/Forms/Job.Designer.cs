@@ -29,31 +29,16 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.displayJob1 = new ApplicantTrackingPlatform.Forms.DisplayJob();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.displayJob1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(700, 450);
             this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // displayJob1
-            // 
-            this.displayJob1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.displayJob1.Country = null;
-            this.displayJob1.Description = null;
-            this.displayJob1.Location = new System.Drawing.Point(3, 3);
-            this.displayJob1.Name = "displayJob1";
-            this.displayJob1.Name1 = null;
-            this.displayJob1.Size = new System.Drawing.Size(554, 144);
-            this.displayJob1.TabIndex = 0;
             // 
             // Job
             // 
@@ -64,7 +49,6 @@
             this.Name = "Job";
             this.Text = "Job";
             this.Load += new System.EventHandler(this.Job_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -72,6 +56,5 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private DisplayJob displayJob1;
     }
 }

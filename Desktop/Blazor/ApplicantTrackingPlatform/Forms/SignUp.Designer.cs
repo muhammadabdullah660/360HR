@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtpassword = new System.Windows.Forms.TextBox();
@@ -53,7 +54,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -82,6 +85,7 @@
             this.txtpassword.Name = "txtpassword";
             this.txtpassword.Size = new System.Drawing.Size(202, 20);
             this.txtpassword.TabIndex = 8;
+            this.txtpassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtpassword_Validating);
             // 
             // txtemail
             // 
@@ -89,6 +93,7 @@
             this.txtemail.Name = "txtemail";
             this.txtemail.Size = new System.Drawing.Size(202, 20);
             this.txtemail.TabIndex = 7;
+            this.txtemail.Validating += new System.ComponentModel.CancelEventHandler(this.txtemail_Validating);
             // 
             // label1
             // 
@@ -117,6 +122,8 @@
             this.txtstreet.Size = new System.Drawing.Size(166, 20);
             this.txtstreet.TabIndex = 12;
             this.txtstreet.Text = "Street NO";
+            this.txtstreet.TextChanged += new System.EventHandler(this.txtstreet_TextChanged);
+            this.txtstreet.Validating += new System.ComponentModel.CancelEventHandler(this.txtstreet_Validating);
             // 
             // txtphone
             // 
@@ -124,6 +131,7 @@
             this.txtphone.Name = "txtphone";
             this.txtphone.Size = new System.Drawing.Size(202, 20);
             this.txtphone.TabIndex = 11;
+            this.txtphone.Validating += new System.ComponentModel.CancelEventHandler(this.txtphone_Validating);
             // 
             // label5
             // 
@@ -151,6 +159,7 @@
             this.txtlname.Name = "txtlname";
             this.txtlname.Size = new System.Drawing.Size(202, 20);
             this.txtlname.TabIndex = 16;
+            this.txtlname.Validating += new System.ComponentModel.CancelEventHandler(this.txtlname_Validating);
             // 
             // txtfname
             // 
@@ -158,6 +167,7 @@
             this.txtfname.Name = "txtfname";
             this.txtfname.Size = new System.Drawing.Size(202, 20);
             this.txtfname.TabIndex = 15;
+            this.txtfname.Validating += new System.ComponentModel.CancelEventHandler(this.txtfname_Validating);
             // 
             // panel1
             // 
@@ -204,6 +214,7 @@
             this.cmbrole.Name = "cmbrole";
             this.cmbrole.Size = new System.Drawing.Size(202, 21);
             this.cmbrole.TabIndex = 21;
+            this.cmbrole.Validating += new System.ComponentModel.CancelEventHandler(this.cmbrole_Validating);
             // 
             // cmbgender
             // 
@@ -215,6 +226,7 @@
             this.cmbgender.Name = "cmbgender";
             this.cmbgender.Size = new System.Drawing.Size(202, 21);
             this.cmbgender.TabIndex = 22;
+            this.cmbgender.Validating += new System.ComponentModel.CancelEventHandler(this.cmbgender_Validating);
             // 
             // label9
             // 
@@ -233,6 +245,7 @@
             this.txtstate.Size = new System.Drawing.Size(184, 20);
             this.txtstate.TabIndex = 24;
             this.txtstate.Text = "City";
+            this.txtstate.Validating += new System.ComponentModel.CancelEventHandler(this.txtstate_Validating);
             // 
             // txtcountry
             // 
@@ -241,6 +254,7 @@
             this.txtcountry.Size = new System.Drawing.Size(202, 20);
             this.txtcountry.TabIndex = 25;
             this.txtcountry.Text = "Country";
+            this.txtcountry.Validating += new System.ComponentModel.CancelEventHandler(this.txtcountry_Validating);
             // 
             // label10
             // 
@@ -295,6 +309,10 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // SignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,8 +349,10 @@
             this.MinimumSize = new System.Drawing.Size(757, 500);
             this.Name = "SignUp";
             this.Text = "SignUp";
+            this.Load += new System.EventHandler(this.SignUp_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -365,5 +385,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

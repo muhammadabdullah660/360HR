@@ -22,22 +22,38 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void Job_Load(object sender, EventArgs e)
         {
-            AddressDL a = new AddressDL();
-            li = a.LoadAddresses();
-            foreach (var ad in li)
+            JobDL j = new JobDL();
+            CompanyDL c = new CompanyDL();
+            foreach(JobBL jb in j.Joblist)
             {
-                DisplayJob d = new DisplayJob();
-                d.Name1 = ad.StreetNo;
-                d.Description = ad.State;
-                d.Country = ad.Country;
+                
+                foreach(CompanyBL co in c.Companylist)
+                {
+                    if (co.Id == jb.Companyid)
+                    {
+                        DisplayJob d = new DisplayJob();
+                        d.JobName = jb.Title;
+                        d.JobDescription = jb.Description;
+                        d.CompanyANme = co.Name;
+                        d.Companydescription = co.Description;
+                        d.CompanyContact = co.Contact;
+                        flowLayoutPanel1.Controls.Add(d);
+                    }
+                }
+            
+            
+           
 
-
-
-                flowLayoutPanel1.Controls.Add(d);
+              
 
 
 
             }
+        }
+
+        private void displayJob1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

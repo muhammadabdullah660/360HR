@@ -45,6 +45,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelChildForm = new System.Windows.Forms.Panel();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -53,11 +55,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.pictureBox8);
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.pictureBox6);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.pictureBox3);
@@ -100,6 +105,7 @@
             this.button5.TabIndex = 16;
             this.button5.Text = "Profile";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // pictureBox3
             // 
@@ -127,11 +133,12 @@
             this.button2.TabIndex = 14;
             this.button2.Text = "Log Out";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(9, 246);
+            this.pictureBox1.Location = new System.Drawing.Point(9, 275);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(31, 27);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -141,7 +148,7 @@
             // pictureBox5
             // 
             this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(8, 201);
+            this.pictureBox5.Location = new System.Drawing.Point(8, 230);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(28, 27);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -166,12 +173,13 @@
             this.button4.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(3, 193);
+            this.button4.Location = new System.Drawing.Point(3, 224);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(162, 41);
             this.button4.TabIndex = 10;
             this.button4.Text = "Status";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -181,7 +189,7 @@
             this.button3.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(3, 237);
+            this.button3.Location = new System.Drawing.Point(5, 268);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(162, 41);
             this.button3.TabIndex = 9;
@@ -202,6 +210,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Jobs";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label4
             // 
@@ -252,6 +261,33 @@
             this.panelChildForm.Name = "panelChildForm";
             this.panelChildForm.Size = new System.Drawing.Size(632, 450);
             this.panelChildForm.TabIndex = 14;
+            this.panelChildForm.Paint += new System.Windows.Forms.PaintEventHandler(this.panelChildForm_Paint);
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(8, 192);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(28, 27);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox8.TabIndex = 20;
+            this.pictureBox8.TabStop = false;
+            // 
+            // button6
+            // 
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button6.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(3, 186);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(162, 41);
+            this.button6.TabIndex = 19;
+            this.button6.Text = "Projects";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Applicant
             // 
@@ -262,6 +298,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Applicant";
             this.Text = "Applicant";
+            this.Load += new System.EventHandler(this.Applicant_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -272,6 +309,7 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -294,5 +332,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelChildForm;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.Button button6;
     }
 }

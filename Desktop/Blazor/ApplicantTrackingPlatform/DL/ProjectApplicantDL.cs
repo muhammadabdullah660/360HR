@@ -1,5 +1,4 @@
 ﻿using ApplicantTrackingPlatform.BL;
-using ApplicantTrackingPlatform.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,45 +8,44 @@ using System.Threading.Tasks;
 
 namespace ApplicantTrackingPlatform.DL
 {
-     class JobDL
+    class ProjectApplicantDL
     {
         private string connectionString;
-        public List<JobBL> Joblist = new List<JobBL>();
+        public List<ProjectApplicantBL> ProjectApplicantlist = new List<ProjectApplicantBL>();
 
-        public JobDL()
+        public ProjectApplicantDL()
         {
             connectionString = @"Data Source=(local);Initial Catalog=360HR;Integrated Security=True";
-            LoadJobData();
+            LoadProjectApplicantData();
         }
 
-        public List<JobBL> GetAllJob()
+        public List<ProjectApplicantBL> GetAllProjectApplicant()
         {
-            return Joblist;
+            return ProjectApplicantlist;
         }
-        public int InsertJob(JobBL Job, out int JobId, out string error)
+        public int InsertProjectApplicant(ProjectApplicantBL Job, out int ProjectApplicantId, out string error)
         {
-            JobId = 0;
+            ProjectApplicantId = 0;
             error = "";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO JOB (CompanyID,Title,Description,Managerid) OUTPUT INSERTED.ID VALUES (@CompanyID,@Title,@Description,@Managerid)", connection);
+                SqlCommand command = new SqlCommand("INSERT INTO ProjectApplicants (ProjectID,ProfileID,StatusID,Rate) OUTPUT INSERTED.ID VALUES (@ProjectID,@ProfileID,@StatusID,@Rate)", connection);
 
                 // Assuming "address" is an instance of your Address class
-                command.Parameters.AddWithValue("@CompanyID", Job.Companyid);
-                command.Parameters.AddWithValue("@Title", Job.Title);
-                command.Parameters.AddWithValue("@Description", Job.Description);
-                command.Parameters.AddWithValue("@Managerid", Job.Managerid);
-
+                command.Parameters.AddWithValue("@ProjectID", Job.Projectid);
+                command.Parameters.AddWithValue("@ProfileID", Job.Profileid);
+                command.Parameters.AddWithValue("@StatusID", Job.Statusid);
+                command.Parameters.AddWithValue("@Rate", Job.Rate);
 
 
                 // Execute the SQL command and retrieve the newly created address ID
                 object result = command.ExecuteScalar();
 
-                if (result != null && int.TryParse(result.ToString(), out JobId))
+                if (result != null && int.TryParse(result.ToString(), out ProjectApplicantId))
                 {
-                    return JobId;
+                    return ProjectApplicantId;
                 }
                 else
                 {
@@ -58,7 +56,7 @@ namespace ApplicantTrackingPlatform.DL
                         connection1.Open();
                         SqlCommand command2 = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection1);
                         //  command.CommandType = CommandType.StoredProcedure;
-                        command2.Parameters.AddWithValue("@FunctionName", "InsertJob");
+                        command2.Parameters.AddWithValue("@FunctionName", "InsertProjectApplicant");
                         command2.Parameters.AddWithValue("@ExceptionMessage", error);
 
                         // Execute the stored procedure
@@ -69,30 +67,30 @@ namespace ApplicantTrackingPlatform.DL
             }
         }
 
-        private void LoadJobData()
+        private void LoadProjectApplicantData()
         {
-            Joblist.Clear();
+            ProjectApplicantlist.Clear();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("Select * from Job where Active=1", connection);
+                SqlCommand command = new SqlCommand("Select * from ProjectApplicants where Active=1", connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    JobBL Job = new JobBL();
-                    Job.Id = Convert.ToInt32(reader["ID"]);
-                    Job.Managerid = Convert.ToInt32(reader["Managerid"]);
-                    Job.Companyid = Convert.ToInt32(reader["CompanyID"]);
-                    Job.Title = reader["Title"].ToString();
-                    Job.Description = reader["Description"].ToString();
-                    Joblist.Add(Job);
+                    ProjectApplicantBL ProjectApplicant = new ProjectApplicantBL();
+                    ProjectApplicant.Id = Convert.ToInt32(reader["ID"]);
+                    ProjectApplicant.Projectid = Convert.ToInt32(reader["ProjectID"]);
+                    ProjectApplicant.Profileid = Convert.ToInt32(reader["ProfileID"]);
+                    ProjectApplicant.Statusid = Convert.ToInt32(reader["StatusID"]);
+                    ProjectApplicant.Rate = (float)Convert.ToDouble(reader["Rate"]);
+                    ProjectApplicantlist.Add(ProjectApplicant);
                 }
                 reader.Close();
             }
         }
 
-        public bool DeleteJob(int jobid, out string error)
+        public bool DeleteProjectApplicant(int ProjectApplicantid, out string error)
         {
             error = "";
 
@@ -101,11 +99,11 @@ namespace ApplicantTrackingPlatform.DL
                 connection.Open();
 
                 // Use parameterized query to avoid SQL injection
-                string query = "UPDATE Job SET Active = 0 WHERE ID = @ID";
+                string query = "UPDATE ProjectApplicants SET Active = 0 WHERE ID = @ID";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // Add parameter
-                command.Parameters.AddWithValue("@ID", jobid);
+                command.Parameters.AddWithValue("@ID", ProjectApplicantid);
 
                 try
                 {
@@ -119,20 +117,20 @@ namespace ApplicantTrackingPlatform.DL
                     else
                     {
                         // No rows were updated, meaning the job ID might not exist
-                        error = "No rows were updated. Job ID may not exist.";
+                        error = "No rows were updated. ID may not exist.";
                         return false;
                     }
                 }
                 catch (Exception ex)
                 {
                     // Handle any exceptions that occurred during the update
-                    error = "Error updating the database: " + ex.Message;
+                    error = "Error Deleting the database: " + ex.Message;
                     using (SqlConnection connection1 = new SqlConnection(connectionString))
                     {
                         connection1.Open();
                         SqlCommand command2 = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection1);
                         //  command.CommandType = CommandType.StoredProcedure;
-                        command2.Parameters.AddWithValue("@FunctionName", "DeleteJob");
+                        command2.Parameters.AddWithValue("@FunctionName", "DeleteProjectApplicant");
                         command2.Parameters.AddWithValue("@ExceptionMessage", error);
 
                         // Execute the stored procedure
@@ -140,11 +138,11 @@ namespace ApplicantTrackingPlatform.DL
                     }
                     return false;
                 }
-           
+
             }
         }
 
-        public bool UpdateJob(int jobid,string title,string des,out string error)
+        public bool UpdateProjectApplicant(int ProjectApplicantid, int statusid, out string error)
         {
             error = "";
 
@@ -153,14 +151,13 @@ namespace ApplicantTrackingPlatform.DL
                 connection.Open();
 
                 // Use parameterized query to avoid SQL injection
-                string query = "UPDATE Job SET updatedAT = GetDate(),Title=@Title,Description=@Description WHERE ID = @ID";
+                string query = "UPDATE ProjectApplicants SET updatedAT = GetDate(),StatusID=@StatusID WHERE ID = @ID";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // Add parameter
-                command.Parameters.AddWithValue("@ID", jobid);
-               // command.Parameters.AddWithValue("@CompanyID", jb.Companyid);
-                command.Parameters.AddWithValue("@Title",title);
-                command.Parameters.AddWithValue("@Description", des);
+                command.Parameters.AddWithValue("@ID", ProjectApplicantid);
+                command.Parameters.AddWithValue("@StatusID", statusid);
+
                 //command.Parameters.AddWithValue("@IManagerid", jb.Managerid);
                 try
                 {
@@ -174,7 +171,7 @@ namespace ApplicantTrackingPlatform.DL
                     else
                     {
                         // No rows were updated, meaning the job ID might not exist
-                        error = "No rows were updated. Job ID may not exist.";
+                        error = "No rows were updated.ID may not exist.";
                         return false;
                     }
                 }
@@ -187,7 +184,7 @@ namespace ApplicantTrackingPlatform.DL
                         connection1.Open();
                         SqlCommand command2 = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection1);
                         //  command.CommandType = CommandType.StoredProcedure;
-                        command2.Parameters.AddWithValue("@FunctionName", "UpdateJob");
+                        command2.Parameters.AddWithValue("@FunctionName", "UpdateProjectApplicant");
                         command2.Parameters.AddWithValue("@ExceptionMessage", error);
 
                         // Execute the stored procedure
@@ -199,20 +196,17 @@ namespace ApplicantTrackingPlatform.DL
             }
         }
 
-        public JobBL GetJobById(int jid)
+        public ProjectApplicantBL GetProjectApplicantById(int jid)
         {
-            foreach(JobBL jo in Joblist)
+            foreach (ProjectApplicantBL jo in ProjectApplicantlist)
             {
-                if(jo.Id==jid)
+                if (jo.Id == jid)
                 {
                     return jo;
                 }
             }
-            return null; 
+            return null;
 
         }
-
-
-
     }
 }

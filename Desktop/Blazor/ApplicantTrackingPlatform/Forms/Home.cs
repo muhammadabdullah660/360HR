@@ -67,7 +67,19 @@ namespace ApplicantTrackingPlatform.Forms
 
             if (this.Role == "Applicant")
             {
-                OpenChildForm(new Applicant());
+                ApplicantDL m = new ApplicantDL();
+                ApplicantBL ma = m.GetApplicantbyId(Pid);
+                if (ma != null)
+                {
+                    OpenChildForm(new Applicant(pid,ma.Id));
+                }
+                else
+                {
+                    OpenChildForm(new Applicant(pid,-1));
+
+                }
+                linkLabel1.Enabled = false;
+                linkLabel2.Enabled = false;
             }
             else if (this.Role == "Manager")
             {

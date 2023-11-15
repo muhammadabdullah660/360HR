@@ -130,7 +130,7 @@ namespace ApplicantTrackingPlatform.DL
                     else
                     {
                         // No rows were updated, meaning the job ID might not exist
-                        error = "No rows were updated. Job ID may not exist.";
+                        error = "No rows were updated.ID may not exist.";
                         return false;
                     }
                 }
@@ -187,7 +187,7 @@ namespace ApplicantTrackingPlatform.DL
                     else
                     {
                         // No rows were updated, meaning the job ID might not exist
-                        error = "No rows were updated. Job ID may not exist.";
+                        error = "No rows were updated. ID may not exist.";
                         return false;
                     }
                 }

@@ -2,26 +2,22 @@
 using ApplicantTrackingPlatform.DL;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ApplicantTrackingPlatform.Forms
 {
-    public partial class ViewProject : Form
+    public partial class ApplyProject : Form
     {
-        private int mid;
         private int pid;
+        private int aid;
         private Form activeForm = null;
-        public ViewProject(int mid, int pid)
+        public ApplyProject(int pid, int aid)
         {
-            this.mid = mid;
             InitializeComponent();
             this.pid = pid;
+            this.aid = aid;
         }
         private void OpenChildForm(Form childfrom)
         {
@@ -38,37 +34,42 @@ namespace ApplicantTrackingPlatform.Forms
             childfrom.BringToFront();
             childfrom.Show();
         }
-
         private void DataShow()
         {
             DataTable dt = new DataTable();
 
             // Add columns to the DataTable
             dt.Columns.Add("Id", typeof(string));
-            dt.Columns.Add("Name", typeof(string));
-            dt.Columns.Add("Description", typeof(string));
+            dt.Columns.Add("ProjectName", typeof(string));
+            dt.Columns.Add("ProjectDescription", typeof(string));
             dt.Columns.Add("StartDate", typeof(DateTime));
             dt.Columns.Add("EndDate", typeof(DateTime));
             dt.Columns.Add("Skills", typeof(string));
-
-          
+            ApplicantDL app = new ApplicantDL();
+            ApplicantBL appbl = app.GetApplicantbyId(pid);
+            
             ProjectDL j = new ProjectDL();
             List<ProjectBL> jl = j.Projectlist;
             ProjectSkillDL js = new ProjectSkillDL();
             List<ProjectSkillBL> jsl = js.ProjectSkilllist;
+            ProjectApplicantDL jbap = new ProjectApplicantDL();
+            List<ProjectApplicantBL> jbapl = jbap.ProjectApplicantlist;
 
             foreach (ProjectBL jb in jl)
             {
-                if (jb.Managerid == mid)
+
+                if (!jbapl.Any(jbapd => jb.Id == jbapd.Projectid && jbapd.Profileid == appbl.Id))
                 {
+
                     DataRow dr = dt.NewRow();
                     dr["Id"] = jb.Id;
 
-                    dr["Name"] = jb.Title;
-                    dr["Description"] = jb.Description;
+                    dr["ProjectName"] = jb.Title;
+                    dr["ProjectDescription"] = jb.Description;
                     dr["StartDate"] = jb.Start;
                     dr["EndDate"] = jb.End;
 
+                   
 
                     string skill = ""; // Initialize the variable
                     foreach (ProjectSkillBL jsa in jsl)
@@ -82,18 +83,14 @@ namespace ApplicantTrackingPlatform.Forms
 
                     dt.Rows.Add(dr);
                 }
+
             }
 
             dataGridView1.DataSource = dt;
             dataGridView1.Refresh();
             dataGridView1.Columns["Id"].Visible = false;
         }
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void ViewProject_Load(object sender, EventArgs e)
+        private void ApplyProject_Load(object sender, EventArgs e)
         {
             DataShow();
             AutoSizeDataGridView();
@@ -104,35 +101,62 @@ namespace ApplicantTrackingPlatform.Forms
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new AddProject(pid, mid, -1));
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int jobId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value);
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
-                ProjectDL j = new ProjectDL();
-                string err = "";
-                if (j.DeleteProject(jobId, out err))
-                {
-                    MessageBox.Show("Delete Successfully");
-                    DataShow();
-                }
-                else
-                {
-                    MessageBox.Show(err);
-                }
+                OpenChildForm(new AddApplyProject(pid,aid,jobId));
+
 
 
             }
-            else if (e.ColumnIndex == 1 && e.RowIndex >= 0)
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                MessageBox.Show("Edit");
-                OpenChildForm(new AddProject(pid, mid, jobId));
+                if (row.IsNewRow)
+                {
+                    // Skip the new row
+                    continue;
+                }
+
+                bool rowVisible = false;
+
+                // Clear any selected cells to avoid InvalidOperationException
+                dataGridView1.CurrentCell = null;
+
+                // Concatenate all the cell values in the row into a single string for searching
+                string rowValue = string.Join(" ", row.Cells.Cast<DataGridViewCell>().Select(cell => cell.Value?.ToString()));
+
+                if (rowValue.ToLower().Contains(txtSearch.Text))
+                {
+                    rowVisible = true;
+                }
+
+                row.Visible = rowVisible;
             }
+        }
+
+        private void txtSearch_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            ApplicantDL m = new ApplicantDL();
+            ApplicantBL ma = m.GetApplicantbyId(pid);
+            if (ma != null)
+            {
+                aid = ma.Id;
+                OpenChildForm(new Status(pid, aid,"Project"));
+            }
+           
         }
     }
 }

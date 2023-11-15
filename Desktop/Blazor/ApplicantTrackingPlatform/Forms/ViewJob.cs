@@ -114,6 +114,12 @@ namespace ApplicantTrackingPlatform.Forms
         private void ViewJob_Load(object sender, EventArgs e)
         {
             DataShow();
+            AutoSizeDataGridView();
+        }
+        private void AutoSizeDataGridView()
+        {
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private void button1_Click(object sender, EventArgs e)

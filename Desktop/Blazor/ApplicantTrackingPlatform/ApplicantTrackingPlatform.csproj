@@ -51,23 +51,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\AddressBL.cs" />
+    <Compile Include="BL\ApplicantBL.cs" />
     <Compile Include="BL\CompanyBL.cs" />
+    <Compile Include="BL\JobApplicantBL.cs" />
     <Compile Include="BL\JobBL.cs" />
     <Compile Include="BL\JobSkillBL.cs" />
     <Compile Include="BL\ManagerBL.cs" />
     <Compile Include="BL\PersonBL.cs" />
+    <Compile Include="BL\ProjectApplicantBL.cs" />
     <Compile Include="BL\ProjectBL.cs" />
     <Compile Include="BL\ProjectSkillBL.cs" />
     <Compile Include="BL\RoleBL.cs" />
     <Compile Include="DL\AddressDL.cs" />
+    <Compile Include="DL\ApplicantDL.cs" />
     <Compile Include="DL\CompanyDL.cs" />
+    <Compile Include="DL\JobApplicantDL.cs" />
     <Compile Include="DL\JobDL.cs" />
     <Compile Include="DL\JobSkillDL.cs" />
     <Compile Include="DL\ManagerDL.cs" />
     <Compile Include="DL\PersonDL.cs" />
+    <Compile Include="DL\ProjectApplicantDL.cs" />
     <Compile Include="DL\ProjectDL.cs" />
     <Compile Include="DL\ProjectSkillDL.cs" />
     <Compile Include="DL\RoleDL.cs" />
+    <Compile Include="Forms\AddApplyProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddApplyProject.Designer.cs">
+      <DependentUpon>AddApplyProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddJob.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +97,24 @@
     </Compile>
     <Compile Include="Forms\Applicant.Designer.cs">
       <DependentUpon>Applicant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ApplicantProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ApplicantProfile.Designer.cs">
+      <DependentUpon>ApplicantProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ApplyJob.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ApplyJob.Designer.cs">
+      <DependentUpon>ApplyJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ApplyProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ApplyProject.Designer.cs">
+      <DependentUpon>ApplyProject.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DisplayJob.cs">
       <SubType>UserControl</SubType>
@@ -115,6 +145,12 @@
     </Compile>
     <Compile Include="Forms\ManagerProfile.Designer.cs">
       <DependentUpon>ManagerProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Status.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Status.Designer.cs">
+      <DependentUpon>Status.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ViewProject.cs">
       <SubType>Form</SubType>
@@ -148,6 +184,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AddApplyProject.resx">
+      <DependentUpon>AddApplyProject.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddJob.resx">
       <DependentUpon>AddJob.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,6 +195,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Applicant.resx">
       <DependentUpon>Applicant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ApplicantProfile.resx">
+      <DependentUpon>ApplicantProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ApplyJob.resx">
+      <DependentUpon>ApplyJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ApplyProject.resx">
+      <DependentUpon>ApplyProject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DisplayJob.resx">
       <DependentUpon>DisplayJob.cs</DependentUpon>
@@ -171,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManagerProfile.resx">
       <DependentUpon>ManagerProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Status.resx">
+      <DependentUpon>Status.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewProject.resx">
       <DependentUpon>ViewProject.cs</DependentUpon>

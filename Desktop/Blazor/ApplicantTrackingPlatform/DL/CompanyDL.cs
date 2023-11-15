@@ -53,7 +53,7 @@ namespace ApplicantTrackingPlatform.DL
                 else
                 {
                     // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                    error = "Insertion failed or addressId couldn't be retrieved.";
+                    error = "Insertion failed couldn't be retrieved.";
                     using (SqlConnection connection1 = new SqlConnection(connectionString))
                     {
                         connection1.Open();
@@ -141,7 +141,7 @@ namespace ApplicantTrackingPlatform.DL
             catch (Exception ex)
             {
                 // Handle exception and set error message
-                error = "Error updating address in database: " + ex.Message;
+                error = "Error updating in database: " + ex.Message;
                 using (SqlConnection connection1 = new SqlConnection(connectionString))
                 {
                     connection1.Open();

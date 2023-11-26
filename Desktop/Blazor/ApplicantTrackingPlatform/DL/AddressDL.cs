@@ -150,7 +150,7 @@ namespace ApplicantTrackingPlatform.DL
             catch (Exception ex)
             {
                 // Handle exception and set error message
-                error = "Error updating address in database: " + ex.Message;
+                error = "Error inserting address in database: " + ex.Message;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();

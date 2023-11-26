@@ -20,13 +20,28 @@ namespace ApplicantTrackingPlatform.Forms
     {
         private int pid;
         private int aid;
+        private Form activeForm = null;
         public ApplicantProfile(int pid, int aid)
         {
             InitializeComponent();
             this.pid = pid;
             this.aid = aid;
         }
-
+        private void OpenChildForm(Form childfrom)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            activeForm = childfrom;
+            childfrom.TopLevel = false;
+            childfrom.FormBorderStyle = FormBorderStyle.None;
+            childfrom.Dock = DockStyle.Fill;
+            panelChildForm.Controls.Add(childfrom);
+            panelChildForm.Tag = childfrom;
+            childfrom.BringToFront();
+            childfrom.Show();
+        }
         private void panelChildForm_Paint(object sender, PaintEventArgs e)
         {
 
@@ -78,6 +93,11 @@ namespace ApplicantTrackingPlatform.Forms
                 //textBox2.Text = this.state;
                 //textBox3.Text = this.street;
                 button1.Enabled = false;
+                button4.Enabled = false;
+                button5.Enabled = false;
+                button6.Enabled=false;
+                button7.Enabled = false;
+                button3.Enabled = false;
             }
             else
             {
@@ -256,6 +276,32 @@ namespace ApplicantTrackingPlatform.Forms
                 {
                     MessageBox.Show("Error in Updating");
                 }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new AddEducation(pid, aid));
+            
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new AddWorkExperience(pid, aid));
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new AddCourses(pid, aid));
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new AddAchivement(pid, aid));
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new AddSkills(pid, aid));
         }
     }
 }

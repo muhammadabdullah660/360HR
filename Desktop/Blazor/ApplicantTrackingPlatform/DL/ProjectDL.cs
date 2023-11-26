@@ -45,21 +45,24 @@ namespace ApplicantTrackingPlatform.DL
                     command.Parameters.AddWithValue("@Title", Project.Title);
 
 
-
-                    // Execute the SQL command and retrieve the newly created address ID
-                    object result = command.ExecuteScalar();
-
-                    if (result != null && int.TryParse(result.ToString(), out ProjectId))
+                    try
                     {
-                        return ProjectId;
+                        // Execute the SQL command and retrieve the newly created address ID
+                        object result = command.ExecuteScalar();
+
+                        if (result != null && int.TryParse(result.ToString(), out ProjectId))
+                        {
+                            return ProjectId;
+                        }
                     }
-                    else
+                    catch(Exception ex)
                     {
                         // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                        error = "Insertion failed or addressId couldn't be retrieved.";
+                        error = "Insertion failed or addressId couldn't be retrieved."+ex.Message;
                         return -1;
                     }
                 }
+                return -1;
             }
             catch(Exception ex)
             {

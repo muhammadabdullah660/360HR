@@ -40,17 +40,20 @@ namespace ApplicantTrackingPlatform.DL
                 command.Parameters.Add("@ProfilePicture", SqlDbType.VarBinary, -1).Value = Applicant.Image;
                 command.Parameters.AddWithValue("@LinkedInLink", Applicant.Linkutl);
                 command.Parameters.AddWithValue("@isFreelancer", Applicant.Isfreelancer);
-                // Execute the SQL command and retrieve the newly created address ID
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out ApplicantId))
+                try
                 {
-                    return ApplicantId;
+                    // Execute the SQL command and retrieve the newly created address ID
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out ApplicantId))
+                    {
+                        return ApplicantId;
+                    }
                 }
-                else
+               catch(Exception ex)
                 {
                     // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                    error = "Insertion failed or addressId couldn't be retrieved.";
+                    error = "Insertion failed or addressId couldn't be retrieved."+ex.Message;
                     using (SqlConnection connection1 = new SqlConnection(connectionString))
                     {
                         connection1.Open();
@@ -64,6 +67,7 @@ namespace ApplicantTrackingPlatform.DL
                     }
                     return -1;
                 }
+                return -1;
             }
         }
         public bool UpdateApplicant(int aid, string url, bool isfree,byte[] img, out string error)

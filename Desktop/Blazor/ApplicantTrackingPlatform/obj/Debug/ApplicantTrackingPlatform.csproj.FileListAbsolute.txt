@@ -26,3 +26,11 @@ C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTracki
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.ApplyProject.resources
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.Status.resources
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddApplyProject.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddEducation.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.DisplayEducation.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddWorkExperience.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.DiaplayWork.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddCourses.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.DisplayCourses.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddAchivement.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddSkills.resources

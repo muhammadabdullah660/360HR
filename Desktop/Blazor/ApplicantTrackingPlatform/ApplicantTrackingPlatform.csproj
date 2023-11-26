@@ -50,9 +50,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\AchivementBL.cs" />
     <Compile Include="BL\AddressBL.cs" />
     <Compile Include="BL\ApplicantBL.cs" />
     <Compile Include="BL\CompanyBL.cs" />
+    <Compile Include="BL\CourseBL.cs" />
+    <Compile Include="BL\EducationBL.cs" />
     <Compile Include="BL\JobApplicantBL.cs" />
     <Compile Include="BL\JobBL.cs" />
     <Compile Include="BL\JobSkillBL.cs" />
@@ -62,9 +65,14 @@
     <Compile Include="BL\ProjectBL.cs" />
     <Compile Include="BL\ProjectSkillBL.cs" />
     <Compile Include="BL\RoleBL.cs" />
+    <Compile Include="BL\SkillBL.cs" />
+    <Compile Include="BL\WorkBL.cs" />
+    <Compile Include="DL\AchivementDL.cs" />
     <Compile Include="DL\AddressDL.cs" />
     <Compile Include="DL\ApplicantDL.cs" />
     <Compile Include="DL\CompanyDL.cs" />
+    <Compile Include="DL\CourseDL.cs" />
+    <Compile Include="DL\EducationDL.cs" />
     <Compile Include="DL\JobApplicantDL.cs" />
     <Compile Include="DL\JobDL.cs" />
     <Compile Include="DL\JobSkillDL.cs" />
@@ -74,11 +82,31 @@
     <Compile Include="DL\ProjectDL.cs" />
     <Compile Include="DL\ProjectSkillDL.cs" />
     <Compile Include="DL\RoleDL.cs" />
+    <Compile Include="DL\SkillDL.cs" />
+    <Compile Include="DL\WorkDL.cs" />
+    <Compile Include="Forms\AddAchivement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddAchivement.Designer.cs">
+      <DependentUpon>AddAchivement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddApplyProject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AddApplyProject.Designer.cs">
       <DependentUpon>AddApplyProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddCourses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddCourses.Designer.cs">
+      <DependentUpon>AddCourses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddEducation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddEducation.Designer.cs">
+      <DependentUpon>AddEducation.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddJob.cs">
       <SubType>Form</SubType>
@@ -91,6 +119,18 @@
     </Compile>
     <Compile Include="Forms\AddProject.Designer.cs">
       <DependentUpon>AddProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddSkills.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddSkills.Designer.cs">
+      <DependentUpon>AddSkills.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddWorkExperience.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddWorkExperience.Designer.cs">
+      <DependentUpon>AddWorkExperience.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Applicant.cs">
       <SubType>Form</SubType>
@@ -115,6 +155,24 @@
     </Compile>
     <Compile Include="Forms\ApplyProject.Designer.cs">
       <DependentUpon>ApplyProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DiaplayWork.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\DiaplayWork.Designer.cs">
+      <DependentUpon>DiaplayWork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DisplayCourses.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\DisplayCourses.Designer.cs">
+      <DependentUpon>DisplayCourses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DisplayEducation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\DisplayEducation.Designer.cs">
+      <DependentUpon>DisplayEducation.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DisplayJob.cs">
       <SubType>UserControl</SubType>
@@ -184,14 +242,29 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AddAchivement.resx">
+      <DependentUpon>AddAchivement.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddApplyProject.resx">
       <DependentUpon>AddApplyProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddCourses.resx">
+      <DependentUpon>AddCourses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddEducation.resx">
+      <DependentUpon>AddEducation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddJob.resx">
       <DependentUpon>AddJob.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddProject.resx">
       <DependentUpon>AddProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddSkills.resx">
+      <DependentUpon>AddSkills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddWorkExperience.resx">
+      <DependentUpon>AddWorkExperience.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Applicant.resx">
       <DependentUpon>Applicant.cs</DependentUpon>
@@ -204,6 +277,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ApplyProject.resx">
       <DependentUpon>ApplyProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DiaplayWork.resx">
+      <DependentUpon>DiaplayWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DisplayCourses.resx">
+      <DependentUpon>DisplayCourses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DisplayEducation.resx">
+      <DependentUpon>DisplayEducation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DisplayJob.resx">
       <DependentUpon>DisplayJob.cs</DependentUpon>

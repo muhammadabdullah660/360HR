@@ -40,19 +40,21 @@ namespace ApplicantTrackingPlatform.DL
                 command.Parameters.AddWithValue("@Description", Job.Description);
                 command.Parameters.AddWithValue("@Managerid", Job.Managerid);
 
-
-
-                // Execute the SQL command and retrieve the newly created address ID
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out JobId))
+                try
                 {
-                    return JobId;
+
+                    // Execute the SQL command and retrieve the newly created address ID
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out JobId))
+                    {
+                        return JobId;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
                     // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                    error = "Insertion failed couldn't be retrieved.";
+                    error = "Insertion failed couldn't be retrieved." + ex.Message;
                     using (SqlConnection connection1 = new SqlConnection(connectionString))
                     {
                         connection1.Open();
@@ -66,6 +68,7 @@ namespace ApplicantTrackingPlatform.DL
                     }
                     return -1;
                 }
+                return -1;
             }
         }
 

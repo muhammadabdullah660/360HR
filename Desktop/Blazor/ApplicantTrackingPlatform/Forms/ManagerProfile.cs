@@ -146,7 +146,6 @@ namespace ApplicantTrackingPlatform.Forms
                 {
                     Console.WriteLine("Address already exists. Using existing Address ID: " + aid);
                     addressId = aid;
-                    MessageBox.Show(addressId.ToString());
                 }
                 if (isSuccess || addressId != -1)
                 {
@@ -177,7 +176,6 @@ namespace ApplicantTrackingPlatform.Forms
                     else
                     {
                         CompId = cid;
-                        MessageBox.Show(CompId.ToString());
                     }
                     if (ComapnyInserted || CompId != -1)
                     {

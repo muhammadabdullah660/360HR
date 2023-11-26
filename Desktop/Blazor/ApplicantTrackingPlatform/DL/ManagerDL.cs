@@ -38,19 +38,23 @@ namespace ApplicantTrackingPlatform.DL
                 command.Parameters.AddWithValue("@Companyid", Manager.Companyid);
                 command.Parameters.AddWithValue("@isManager", Manager.IsManager);
 
-                // Execute the SQL command and retrieve the newly created address ID
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out ManagerId))
+                try
                 {
-                    return ManagerId;
+                    // Execute the SQL command and retrieve the newly created address ID
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out ManagerId))
+                    {
+                        return ManagerId;
+                    }
                 }
-                else
+               catch (Exception ex)
                 {
                     // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                    error = "Insertion failed or addressId couldn't be retrieved.";
+                    error = "Insertion failed or addressId couldn't be retrieved."+ex.Message;
                     return -1;
                 }
+                return -1;
             }
         }
 

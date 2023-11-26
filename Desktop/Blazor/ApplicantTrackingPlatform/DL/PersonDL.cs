@@ -135,6 +135,43 @@ namespace ApplicantTrackingPlatform.DL
 
             
         }
+
+        public bool UpdatePassword(int pid, string pas, out string error)
+        {
+            error = "";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("UPDATE Person SET updatedAT=GetDate(),Password = @Password WHERE PersonID = @PersonID", connection);
+                    //  command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@PersonID", pid);
+                    command.Parameters.AddWithValue("@Password", pas);
+
+                    // Execute the stored procedure
+                    command.ExecuteNonQuery();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception and set error message
+                error = "Error updating in database: " + ex.Message;
+                using (SqlConnection connection1 = new SqlConnection(connectionString))
+                {
+                    connection1.Open();
+                    SqlCommand command2 = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection1);
+                    //  command.CommandType = CommandType.StoredProcedure;
+                    command2.Parameters.AddWithValue("@FunctionName", "UpdatePerson");
+                    command2.Parameters.AddWithValue("@ExceptionMessage", error);
+
+                    // Execute the stored procedure
+                    command2.ExecuteNonQuery();
+                }
+                return false;
+            }
+        }
         public bool UpdatePerson(int pid, string fname, string lname, string con, out string error)
         {
             error = "";

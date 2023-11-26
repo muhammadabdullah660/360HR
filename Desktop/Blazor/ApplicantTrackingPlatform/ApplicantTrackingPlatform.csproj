@@ -158,6 +158,12 @@
     <Compile Include="Forms\ApplyProject.Designer.cs">
       <DependentUpon>ApplyProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DiaplayWork.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -291,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ApplyProject.resx">
       <DependentUpon>ApplyProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DiaplayWork.resx">
       <DependentUpon>DiaplayWork.cs</DependentUpon>

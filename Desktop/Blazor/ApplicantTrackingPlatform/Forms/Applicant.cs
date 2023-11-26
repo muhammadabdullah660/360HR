@@ -156,5 +156,23 @@ namespace ApplicantTrackingPlatform.Forms
             }
            
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            ApplicantDL m = new ApplicantDL();
+            ApplicantBL ma = m.GetApplicantbyId(pid);
+            if (ma != null)
+            {
+                aid = ma.Id;
+
+                OpenChildForm(new ChangePassword(pid));
+
+
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
+            }
+        }
     }
 }

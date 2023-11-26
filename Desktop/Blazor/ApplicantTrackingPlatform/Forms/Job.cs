@@ -22,6 +22,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void Job_Load(object sender, EventArgs e)
         {
+
             JobDL j = new JobDL();
             CompanyDL c = new CompanyDL();
             foreach(JobBL jb in j.Joblist)

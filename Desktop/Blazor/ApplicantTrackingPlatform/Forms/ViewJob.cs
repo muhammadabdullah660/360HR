@@ -113,6 +113,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void ViewJob_Load(object sender, EventArgs e)
         {
+
             DataShow();
             AutoSizeDataGridView();
         }

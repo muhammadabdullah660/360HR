@@ -44,6 +44,7 @@ namespace ApplicantTrackingPlatform.Forms
       
         private void AddEducation_Load(object sender, EventArgs e)
         {
+
             LoadData();
             PersonDL p = new PersonDL();
             PersonBL pe=p.GetPersonById(pid);

@@ -146,6 +146,7 @@ namespace ApplicantTrackingPlatform.Forms
         private void ApplyJob_Load(object sender, EventArgs e)
         {
 
+
             DataShow();
             AutoSizeDataGridView();
         }

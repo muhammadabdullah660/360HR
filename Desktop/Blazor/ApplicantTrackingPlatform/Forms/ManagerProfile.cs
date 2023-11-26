@@ -51,6 +51,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
+
             PersonDL p = new PersonDL();
             PersonBL per = p.GetPersonById(pid);
             label1.Text = per.Email;
@@ -119,6 +120,7 @@ namespace ApplicantTrackingPlatform.Forms
             else
             {
                 ManagerDL man = new ManagerDL();
+               
                 AddressDL ad = new AddressDL();
                 int aid = -1;
                 int addressId = -1; // Initialize addressId outside of if blocks
@@ -179,19 +181,41 @@ namespace ApplicantTrackingPlatform.Forms
                     }
                     if (ComapnyInserted || CompId != -1)
                     {
-                        ManagerBL m = new ManagerBL(pid, CompId, true);
-                        int mi = -1;
-                        string err;
-                        if (man.InsertManager(m, out mi, out err) != -1)
+                        PersonDL p = new PersonDL();
+                        PersonBL pe = p.GetPersonById(pid);
+                        if (pe.RoleId == 2)
                         {
-                            MessageBox.Show("Manager Inserted!!");
+                            ManagerBL m = new ManagerBL(pid, CompId, true);
+                            int mi = -1;
+                            string err;
+                            if (man.InsertManager(m, out mi, out err) != -1)
+                            {
+                                MessageBox.Show("Manager Inserted!!");
 
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error Occur" + err);
+                            }
+                            this.mid = mi;
                         }
-                        else
+                        else if(pe.RoleId==3)
                         {
-                            MessageBox.Show("Error Occur" + err);
+
+                            ManagerBL m = new ManagerBL(pid, CompId, false);
+                            int mi = -1;
+                            string err;
+                            if (man.InsertManager(m, out mi, out err) != -1)
+                            {
+                                MessageBox.Show("Recruiter Inserted!!");
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error Occur" + err);
+                            }
+                            this.mid = mi;
                         }
-                        this.mid = mi;
                     }
 
                 }

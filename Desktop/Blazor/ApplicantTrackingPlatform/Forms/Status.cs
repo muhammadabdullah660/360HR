@@ -218,7 +218,8 @@ namespace ApplicantTrackingPlatform.Forms
         private void Status_Load(object sender, EventArgs e)
         {
 
-            if(type=="Job")
+
+            if (type=="Job")
             {
                 JobDataShow();
             }

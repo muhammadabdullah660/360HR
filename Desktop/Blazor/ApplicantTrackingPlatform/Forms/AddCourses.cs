@@ -63,6 +63,7 @@ namespace ApplicantTrackingPlatform.Forms
         }
         private void AddCourses_Load(object sender, EventArgs e)
         {
+
             PersonDL p = new PersonDL();
             PersonBL pe=p.GetPersonById(pid);
             label11.Text = pe.Email;

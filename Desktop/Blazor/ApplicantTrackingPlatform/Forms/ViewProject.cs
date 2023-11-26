@@ -95,6 +95,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void ViewProject_Load(object sender, EventArgs e)
         {
+
             DataShow();
             AutoSizeDataGridView();
         }

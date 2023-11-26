@@ -63,7 +63,8 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void Home_Load(object sender, EventArgs e)
         {
-            
+
+
 
             if (this.Role == "Applicant")
             {
@@ -100,7 +101,19 @@ namespace ApplicantTrackingPlatform.Forms
             }
             else if (this.Role == "Recruiter")
             {
-                OpenChildForm(new Recruiter());
+                ManagerDL m = new ManagerDL();
+                ManagerBL ma = m.GetManagerbyId(Pid);
+                if (ma != null)
+                {
+                    OpenChildForm(new Recruiter(Pid, ma.Id));
+                }
+                else
+                {
+                    OpenChildForm(new Recruiter(Pid, -1));
+
+                }
+                linkLabel1.Enabled = false;
+                linkLabel2.Enabled = false;
             }
             else
             {

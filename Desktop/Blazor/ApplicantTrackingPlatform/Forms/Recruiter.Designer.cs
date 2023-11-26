@@ -103,6 +103,8 @@
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(10, 403);
             this.pictureBox3.Name = "pictureBox3";
@@ -125,6 +127,7 @@
             this.button2.TabIndex = 14;
             this.button2.Text = "Log Out";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // pictureBox1
             // 
@@ -260,6 +263,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Recruiter";
             this.Text = "Recruiter";
+            this.Load += new System.EventHandler(this.Recruiter_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();

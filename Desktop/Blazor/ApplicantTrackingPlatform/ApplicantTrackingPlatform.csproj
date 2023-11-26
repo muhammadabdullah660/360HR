@@ -56,6 +56,7 @@
     <Compile Include="BL\CompanyBL.cs" />
     <Compile Include="BL\CourseBL.cs" />
     <Compile Include="BL\EducationBL.cs" />
+    <Compile Include="BL\FrndBL.cs" />
     <Compile Include="BL\JobApplicantBL.cs" />
     <Compile Include="BL\JobBL.cs" />
     <Compile Include="BL\JobSkillBL.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="DL\CompanyDL.cs" />
     <Compile Include="DL\CourseDL.cs" />
     <Compile Include="DL\EducationDL.cs" />
+    <Compile Include="DL\FrndDL.cs" />
     <Compile Include="DL\JobApplicantDL.cs" />
     <Compile Include="DL\JobDL.cs" />
     <Compile Include="DL\JobSkillDL.cs" />
@@ -174,11 +176,23 @@
     <Compile Include="Forms\DisplayEducation.Designer.cs">
       <DependentUpon>DisplayEducation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Displayfrnds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Displayfrnds.Designer.cs">
+      <DependentUpon>Displayfrnds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DisplayJob.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\DisplayJob.Designer.cs">
       <DependentUpon>DisplayJob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FriendShip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FriendShip.Designer.cs">
+      <DependentUpon>FriendShip.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Home.cs">
       <SubType>Form</SubType>
@@ -287,8 +301,14 @@
     <EmbeddedResource Include="Forms\DisplayEducation.resx">
       <DependentUpon>DisplayEducation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Displayfrnds.resx">
+      <DependentUpon>Displayfrnds.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DisplayJob.resx">
       <DependentUpon>DisplayJob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FriendShip.resx">
+      <DependentUpon>FriendShip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

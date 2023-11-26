@@ -60,6 +60,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void Applicant_Load(object sender, EventArgs e)
         {
+
             ApplicantDL m = new ApplicantDL();
             ApplicantBL ma = m.GetApplicantbyId(pid);
             if (ma != null)
@@ -139,6 +140,21 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button4_Click(object sender, EventArgs e)
         {
+            ApplicantDL m = new ApplicantDL();
+            ApplicantBL ma = m.GetApplicantbyId(pid);
+            if (ma != null)
+            {
+                aid = ma.Id;
+              
+                    OpenChildForm(new FriendShip(pid, aid));
+             
+
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
+            }
+           
         }
     }
 }

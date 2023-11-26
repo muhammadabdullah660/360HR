@@ -49,6 +49,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void AddProject_Load(object sender, EventArgs e)
         {
+
             ManagerDL m = new ManagerDL();
             ManagerBL ma = m.GetManagerbyId(pid);
             PersonDL p = new PersonDL();

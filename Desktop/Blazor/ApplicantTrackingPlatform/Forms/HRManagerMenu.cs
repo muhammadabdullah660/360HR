@@ -46,6 +46,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void HRManagerMenu_Load(object sender, EventArgs e)
         {
+
             ManagerDL m = new ManagerDL();
             ManagerBL ma=m.GetManagerbyId(pid);
             if(ma!=null)

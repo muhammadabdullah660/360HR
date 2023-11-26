@@ -237,6 +237,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void AddJob_Load(object sender, EventArgs e)
         {
+
             PersonDL p = new PersonDL();
             PersonBL pb = p.GetPersonById(pid);
             label1.Text = pb.Email;

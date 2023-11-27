@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelChildForm = new System.Windows.Forms.Panel();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,10 +50,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panelChildForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -58,6 +60,8 @@
             // panelChildForm
             // 
             this.panelChildForm.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panelChildForm.Controls.Add(this.comboBox1);
+            this.panelChildForm.Controls.Add(this.label15);
             this.panelChildForm.Controls.Add(this.dateTimePicker2);
             this.panelChildForm.Controls.Add(this.dateTimePicker1);
             this.panelChildForm.Controls.Add(this.label6);
@@ -84,6 +88,36 @@
             this.panelChildForm.Size = new System.Drawing.Size(800, 650);
             this.panelChildForm.TabIndex = 16;
             this.panelChildForm.Paint += new System.Windows.Forms.PaintEventHandler(this.panelChildForm_Paint);
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker2.Location = new System.Drawing.Point(171, 284);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(470, 20);
+            this.dateTimePicker2.TabIndex = 48;
+            this.dateTimePicker2.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePicker2_Validating);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(171, 245);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(470, 20);
+            this.dateTimePicker1.TabIndex = 47;
+            this.dateTimePicker1.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePicker1_Validating);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(49, 288);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 16);
+            this.label6.TabIndex = 46;
+            this.label6.Text = "End Date";
             // 
             // button4
             // 
@@ -126,7 +160,7 @@
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(171, 392);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(171, 396);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(473, 169);
             this.flowLayoutPanel1.TabIndex = 44;
@@ -281,39 +315,28 @@
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.Validating += new System.ComponentModel.CancelEventHandler(this.textBox1_Validating);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(49, 306);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 16);
-            this.label6.TabIndex = 46;
-            this.label6.Text = "End Date";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(171, 245);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(470, 20);
-            this.dateTimePicker1.TabIndex = 47;
-            this.dateTimePicker1.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePicker1_Validating);
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(171, 302);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(470, 20);
-            this.dateTimePicker2.TabIndex = 48;
-            this.dateTimePicker2.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePicker2_Validating);
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.Location = new System.Drawing.Point(171, 328);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(473, 21);
+            this.comboBox1.TabIndex = 111;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(54, 333);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(70, 16);
+            this.label15.TabIndex = 110;
+            this.label15.Text = "Recruiter";
             // 
             // AddProject
             // 
@@ -355,5 +378,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label15;
     }
 }

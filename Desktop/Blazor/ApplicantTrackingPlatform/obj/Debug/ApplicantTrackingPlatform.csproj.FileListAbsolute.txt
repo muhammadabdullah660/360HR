@@ -37,3 +37,6 @@ C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTracki
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.FriendShip.resources
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.Displayfrnds.resources
 C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.ChangePassword.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AddInterview.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.ViewApplicant.resources
+C:\Users\DELL\Desktop\Blazor\ApplicantTrackingPlatform\obj\Debug\ApplicantTrackingPlatform.Forms.AcceptProject.resources

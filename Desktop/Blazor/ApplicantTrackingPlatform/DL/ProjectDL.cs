@@ -35,13 +35,14 @@ namespace ApplicantTrackingPlatform.DL
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("INSERT INTO Project (Description,StartDate,EndDate,Managerid,Title) OUTPUT INSERTED.ID VALUES (@Description,@StartDate,@EndDate,@Managerid,@Title)", connection);
+                    SqlCommand command = new SqlCommand("INSERT INTO Project (Description,StartDate,EndDate,Managerid,Title,RecruiterId) OUTPUT INSERTED.ID VALUES (@Description,@StartDate,@EndDate,@Managerid,@Title,@RecruiterId)", connection);
 
                     // Assuming "address" is an instance of your Address class
                     command.Parameters.AddWithValue("@Description", Project.Description);
                     command.Parameters.AddWithValue("@StartDate", Project.Start);
                     command.Parameters.AddWithValue("@EndDate", Project.End);
                     command.Parameters.AddWithValue("@Managerid", Project.Managerid);
+                    command.Parameters.AddWithValue("@RecruiterId", Project.Recid);
                     command.Parameters.AddWithValue("@Title", Project.Title);
 
 
@@ -96,6 +97,7 @@ namespace ApplicantTrackingPlatform.DL
                     ProjectBL Project = new ProjectBL();
                     Project.Id = Convert.ToInt32(reader["ID"]);
                     Project.Managerid = Convert.ToInt32(reader["Managerid"]);
+                    Project.Recid = Convert.ToInt32(reader["RecruiterId"]);
                     Project.Start = Convert.ToDateTime(reader["StartDate"]);
                     Project.End = Convert.ToDateTime(reader["EndDate"]);
                     Project.Title = reader["Title"].ToString();
@@ -158,7 +160,7 @@ namespace ApplicantTrackingPlatform.DL
             }
         }
 
-        public bool UpdateProject(int Projectid, string title, string des,DateTime start,DateTime end, out string error)
+        public bool UpdateProject(int Projectid, string title, string des,DateTime start,DateTime end,int rid, out string error)
         {
             error = "";
 
@@ -167,7 +169,7 @@ namespace ApplicantTrackingPlatform.DL
                 connection.Open();
 
                 // Use parameterized query to avoid SQL injection
-                string query = "UPDATE Project SET updatedAT = GetDate(),Title=@Title,Description=@Description,StartDate=@StartDate,EndDate=@EndDate WHERE ID = @ID";
+                string query = "UPDATE Project SET updatedAT = GetDate(),Title=@Title,Description=@Description,StartDate=@StartDate,EndDate=@EndDate,RecruiterId=@RecruiterId WHERE ID = @ID";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // Add parameter
@@ -177,6 +179,7 @@ namespace ApplicantTrackingPlatform.DL
                 command.Parameters.AddWithValue("@Description", des);
                 command.Parameters.AddWithValue("@StartDate", start);
                 command.Parameters.AddWithValue("@EndDate", end);
+                command.Parameters.AddWithValue("@RecruiterId", rid);
                 //command.Parameters.AddWithValue("@IManagerid", jb.Managerid);
                 try
                 {

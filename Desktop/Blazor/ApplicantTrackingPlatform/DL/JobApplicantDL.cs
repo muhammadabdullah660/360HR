@@ -40,18 +40,20 @@ namespace ApplicantTrackingPlatform.DL
                 command.Parameters.AddWithValue("@StatusID", Job.Statusid);
 
 
-
-                // Execute the SQL command and retrieve the newly created address ID
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out JobApplicantId))
+                try
                 {
-                    return JobApplicantId;
+                    // Execute the SQL command and retrieve the newly created address ID
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out JobApplicantId))
+                    {
+                        return JobApplicantId;
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
                     // Handle the case where the insertion failed or the addressId couldn't be retrieved.
-                    error = "Insertion failed couldn't be retrieved.";
+                    error = "Insertion failed couldn't be retrieved."+ex.Message;
                     using (SqlConnection connection1 = new SqlConnection(connectionString))
                     {
                         connection1.Open();
@@ -66,6 +68,7 @@ namespace ApplicantTrackingPlatform.DL
                     return -1;
                 }
             }
+            return -1;
         }
 
         private void LoadJobApplicantData()

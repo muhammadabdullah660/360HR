@@ -32,14 +32,14 @@ namespace ApplicantTrackingPlatform.DL
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO JOB (CompanyID,Title,Description,Managerid) OUTPUT INSERTED.ID VALUES (@CompanyID,@Title,@Description,@Managerid)", connection);
+                SqlCommand command = new SqlCommand("INSERT INTO JOB (CompanyID,Title,Description,Managerid,RecruiterId) OUTPUT INSERTED.ID VALUES (@CompanyID,@Title,@Description,@Managerid,@RecruiterId)", connection);
 
                 // Assuming "address" is an instance of your Address class
                 command.Parameters.AddWithValue("@CompanyID", Job.Companyid);
                 command.Parameters.AddWithValue("@Title", Job.Title);
                 command.Parameters.AddWithValue("@Description", Job.Description);
                 command.Parameters.AddWithValue("@Managerid", Job.Managerid);
-
+                command.Parameters.AddWithValue("@RecruiterId", Job.Recid);
                 try
                 {
 
@@ -86,6 +86,7 @@ namespace ApplicantTrackingPlatform.DL
                     JobBL Job = new JobBL();
                     Job.Id = Convert.ToInt32(reader["ID"]);
                     Job.Managerid = Convert.ToInt32(reader["Managerid"]);
+                    Job.Recid = Convert.ToInt32(reader["RecruiterId"]);
                     Job.Companyid = Convert.ToInt32(reader["CompanyID"]);
                     Job.Title = reader["Title"].ToString();
                     Job.Description = reader["Description"].ToString();
@@ -147,7 +148,7 @@ namespace ApplicantTrackingPlatform.DL
             }
         }
 
-        public bool UpdateJob(int jobid,string title,string des,out string error)
+        public bool UpdateJob(int jobid,string title,string des,int rid,out string error)
         {
             error = "";
 
@@ -156,7 +157,7 @@ namespace ApplicantTrackingPlatform.DL
                 connection.Open();
 
                 // Use parameterized query to avoid SQL injection
-                string query = "UPDATE Job SET updatedAT = GetDate(),Title=@Title,Description=@Description WHERE ID = @ID";
+                string query = "UPDATE Job SET updatedAT = GetDate(),Title=@Title,Description=@Description,RecruiterId=@RecruiterId WHERE ID = @ID";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // Add parameter
@@ -164,6 +165,7 @@ namespace ApplicantTrackingPlatform.DL
                // command.Parameters.AddWithValue("@CompanyID", jb.Companyid);
                 command.Parameters.AddWithValue("@Title",title);
                 command.Parameters.AddWithValue("@Description", des);
+                command.Parameters.AddWithValue("@RecruiterId", rid);
                 //command.Parameters.AddWithValue("@IManagerid", jb.Managerid);
                 try
                 {

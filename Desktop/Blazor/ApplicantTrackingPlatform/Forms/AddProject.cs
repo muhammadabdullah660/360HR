@@ -46,10 +46,27 @@ namespace ApplicantTrackingPlatform.Forms
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
         }
+        private void LoadData()
+        {
+            List<string> namesToShow = new List<string>();
+            PersonDL p = new PersonDL();
 
+            ManagerDL m = new ManagerDL();
+            foreach (ManagerBL ma in m.GetAllManager())
+            {
+                if (ma.IsManager == false)
+                {
+                    PersonBL pe = p.GetPersonById(ma.Personid);
+                    namesToShow.Add(pe.Email);
+                }
+            }
+
+            // Bind the list of names to the ComboBox
+            comboBox1.DataSource = namesToShow;
+        }
         private void AddProject_Load(object sender, EventArgs e)
         {
-
+            LoadData();
             ManagerDL m = new ManagerDL();
             ManagerBL ma = m.GetManagerbyId(pid);
             PersonDL p = new PersonDL();
@@ -169,8 +186,19 @@ namespace ApplicantTrackingPlatform.Forms
                 j.Start = dateTimePicker1.Value;
                 j.End = dateTimePicker2.Value;
                 j.Managerid = ma.Id;
+                PersonDL p = new PersonDL();
+                int id = -1;
+                foreach (PersonBL pe in p.GetAllPersons())
+                {
+                    if (pe.Email == comboBox1.Text)
+                    {
+                        id = pe.Id;
+                    }
+                }
+                ManagerBL me = m.GetManagerbyId(id);
+                j.Recid = me.Id;
                 proid = Project.InsertProject(j, out pro, out error);
-               
+                
                 ProjectSkillDL js = new ProjectSkillDL();
                 List<ProjectSkillBL> sjl = new List<ProjectSkillBL>();
                 sjl = js.GetLsitBySkill(s, proid);
@@ -225,12 +253,23 @@ namespace ApplicantTrackingPlatform.Forms
 
                 List<ProjectSkillBL> i = js.GetLsitBySkill(toInsert, proid);
                 js.InsertProjectSkill(i, out err);
-
+                PersonDL p = new PersonDL();
+                int id = -1;
+                foreach (PersonBL pe in p.GetAllPersons())
+                {
+                    if (pe.Email == comboBox1.Text)
+                    {
+                        id = pe.Id;
+                    }
+                }
+                ManagerDL m = new ManagerDL();
+                ManagerBL me = m.GetManagerbyId(id);
+                
                 ProjectDL j = new ProjectDL();
                 ProjectBL pb = j.GetProjectById(proid);
-                if (pb.Title!=textBox1.Text || pb.Description!=richTextBox1.Text||dateTimePicker1.Value!=pb.Start||dateTimePicker2.Value!=pb.End)
+                if (pb.Title!=textBox1.Text || pb.Description!=richTextBox1.Text||dateTimePicker1.Value!=pb.Start||dateTimePicker2.Value!=pb.End || pb.Recid!=me.Id)
                 {
-                    if (j.UpdateProject(proid, textBox1.Text, richTextBox1.Text, dateTimePicker1.Value, dateTimePicker2.Value, out err))
+                    if (j.UpdateProject(proid, textBox1.Text, richTextBox1.Text, dateTimePicker1.Value, dateTimePicker2.Value,me.Id, out err))
                     {
                         MessageBox.Show("Updated Successfully!!");
                     }

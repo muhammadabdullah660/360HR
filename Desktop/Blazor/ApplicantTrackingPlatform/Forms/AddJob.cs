@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -124,120 +125,31 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (errorProvider1.GetError(textBox1) != "" || errorProvider1.GetError(richTextBox1) != "" || errorProvider1.GetError(textBox5) != "" || errorProvider1.GetError(textBox2) != "" || errorProvider1.GetError(textBox3) != "" || errorProvider1.GetError(textBox4) != "" || errorProvider1.GetError(textBox6) != ""  || errorProvider1.GetError(richTextBox2) != "" || textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "" || richTextBox1.Text == "" || richTextBox2.Text == "" )
+           
+        }
+
+        private void LoadData()
+        {
+            List<string> namesToShow = new List<string>();
+            PersonDL p = new PersonDL();
+            
+            ManagerDL m = new ManagerDL();
+            foreach(ManagerBL ma in m.GetAllManager())
             {
-                MessageBox.Show("Enter Information Correctly");
-            }
-            else
-            {
-                List<string> s = new List<string>();
-                foreach (Control control in flowLayoutPanel1.Controls)
+                if(ma.IsManager==false)
                 {
-                    if (control is Button)
-                    {
-
-                        Button button = (Button)control;
-                        if (button.Text != "X" && button.Text != null)
-                        {
-                            s.Add(button.Text);
-                        }
-                    }
-                }
-                JobDL job = new JobDL();
-                AddressDL ad = new AddressDL();
-                int aid = ad.GetAddressId(textBox4.Text, textBox2.Text, textBox3.Text);
-
-                int addressId = -1; // Initialize addressId outside of if blocks
-                bool isSuccess = false; // Initialize isSuccess outside of if blocks
-
-                // Check if the address already exists
-                if (aid == -1)
-                {
-                    AddressBL address = new AddressBL(textBox4.Text, textBox2.Text, textBox3.Text);
-
-                    string error;
-                    // Call the InsertAddress function and pass the address object as a parameter
-                    isSuccess = ad.InsertAddress(address, out addressId, out error);
-
-                    if (isSuccess)
-                    {
-                        Console.WriteLine("Address inserted successfully. Address ID: " + addressId);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Failed to insert the address. Error: " + error);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Address already exists. Using existing Address ID: " + aid);
-                    addressId = aid;
-                }
-                if (isSuccess || addressId != -1)
-                {
-                    CompanyDL co = new CompanyDL();
-                    int cid = co.GetCompanyId(textBox1.Text, richTextBox1.Text, textBox5.Text, addressId);
-
-                    int CompId = -1; // Initialize addressId outside of if blocks
-                    bool ComapnyInserted = false; // Initialize isSuccess outside of if blocks
-
-                    // Check if the address already exists
-                    if (cid == -1)
-                    {
-                        CompanyBL company = new CompanyBL(textBox1.Text, richTextBox1.Text, textBox5.Text, addressId);
-
-                        string error;
-                        // Call the InsertAddress function and pass the address object as a parameter
-                        ComapnyInserted = co.InsertCompany(company, out CompId, out error);
-
-                        if (ComapnyInserted)
-                        {
-                            Console.WriteLine("Comapny inserted successfully. Company ID: " + CompId);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Failed to insert the Company. Error: " + error);
-                        }
-                    }
-                    else
-                    {
-                        CompId = cid;
-                    }
-                    if (ComapnyInserted || CompId != -1)
-                    {
-                        ManagerDL m = new ManagerDL();
-                        ManagerBL ma = m.GetManagerbyId(pid);
-                        int ji = 0;
-                        string error = "";
-                        JobBL j = new JobBL();
-                        j.Title = textBox6.Text;
-                        j.Description = richTextBox2.Text;
-                        j.Companyid = CompId;
-                        j.Managerid = ma.Id;
-                        jid = job.InsertJob(j, out ji, out error);
-                        JobSkillDL js = new JobSkillDL();
-                        List<JobSkillBL> sjl = new List<JobSkillBL>();
-                        sjl = js.GetLsitBySkill(s, jid);
-                        string err = "";
-                        js.InsertJobSkill(sjl, out err);
-                        if(jid!=-1)
-                        {
-                            MessageBox.Show("Insert Successfully!!");
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Error While insert!!");
-                        }
-
-                    }
+                    PersonBL pe = p.GetPersonById(ma.Personid);
+                    namesToShow.Add(pe.Email);
                 }
             }
+
+            // Bind the list of names to the ComboBox
+            comboBox1.DataSource = namesToShow;
         }
 
         private void AddJob_Load(object sender, EventArgs e)
         {
-
+            LoadData();
             PersonDL p = new PersonDL();
             PersonBL pb = p.GetPersonById(pid);
             label1.Text = pb.Email;
@@ -261,7 +173,7 @@ namespace ApplicantTrackingPlatform.Forms
             }
             else
             {
-                button2.Enabled=false;
+                button5.Enabled=false;
                 textBox1.Enabled = false;
                 textBox2.Enabled = false;
                 textBox3.Enabled = false;
@@ -334,12 +246,23 @@ namespace ApplicantTrackingPlatform.Forms
 
                 List<JobSkillBL> i = js.GetLsitBySkill(toInsert, jid);
                 js.InsertJobSkill(i, out err);
-
+                PersonDL p = new PersonDL();
+                int id = -1;
+                foreach (PersonBL pe in p.GetAllPersons())
+                {
+                    if (pe.Email == comboBox1.Text)
+                    {
+                        id = pe.Id;
+                    }
+                }
+                ManagerDL m = new ManagerDL();
+                ManagerBL me = m.GetManagerbyId(id);
+               
                 JobDL j = new JobDL();
                 JobBL jb = j.GetJobById(jid);
-                if (jb.Title!=textBox6.Text||jb.Description!=richTextBox2.Text) 
+                if (jb.Title!=textBox6.Text||jb.Description!=richTextBox2.Text || jb.Recid!=me.Id) 
                 {
-                    if (j.UpdateJob(jid, textBox6.Text, richTextBox2.Text, out err))
+                    if (j.UpdateJob(jid, textBox6.Text, richTextBox2.Text,me.Id, out err))
                     {
                         MessageBox.Show("Updated Successfully!!");
                     }
@@ -485,6 +408,130 @@ namespace ApplicantTrackingPlatform.Forms
                 e.Cancel = true;
                 richTextBox2.Focus();
                 errorProvider1.SetError(richTextBox2, "Invalid");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (errorProvider1.GetError(textBox1) != "" || errorProvider1.GetError(richTextBox1) != "" || errorProvider1.GetError(textBox5) != "" || errorProvider1.GetError(textBox2) != "" || errorProvider1.GetError(textBox3) != "" || errorProvider1.GetError(textBox4) != "" || errorProvider1.GetError(textBox6) != "" || errorProvider1.GetError(richTextBox2) != "" || textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || textBox5.Text == "" || textBox6.Text == "" || richTextBox1.Text == "" || richTextBox2.Text == "" || comboBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Enter Information Correctly");
+            }
+            else
+            {
+                List<string> s = new List<string>();
+                foreach (Control control in flowLayoutPanel1.Controls)
+                {
+                    if (control is Button)
+                    {
+
+                        Button button = (Button)control;
+                        if (button.Text != "X" && button.Text != null)
+                        {
+                            s.Add(button.Text);
+                        }
+                    }
+                }
+                JobDL job = new JobDL();
+                AddressDL ad = new AddressDL();
+                int aid = ad.GetAddressId(textBox4.Text, textBox2.Text, textBox3.Text);
+
+                int addressId = -1; // Initialize addressId outside of if blocks
+                bool isSuccess = false; // Initialize isSuccess outside of if blocks
+
+                // Check if the address already exists
+                if (aid == -1)
+                {
+                    AddressBL address = new AddressBL(textBox4.Text, textBox2.Text, textBox3.Text);
+
+                    string error;
+                    // Call the InsertAddress function and pass the address object as a parameter
+                    isSuccess = ad.InsertAddress(address, out addressId, out error);
+
+                    if (isSuccess)
+                    {
+                        Console.WriteLine("Address inserted successfully. Address ID: " + addressId);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Failed to insert the address. Error: " + error);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Address already exists. Using existing Address ID: " + aid);
+                    addressId = aid;
+                }
+                if (isSuccess || addressId != -1)
+                {
+                    CompanyDL co = new CompanyDL();
+                    int cid = co.GetCompanyId(textBox1.Text, richTextBox1.Text, textBox5.Text, addressId);
+
+                    int CompId = -1; // Initialize addressId outside of if blocks
+                    bool ComapnyInserted = false; // Initialize isSuccess outside of if blocks
+
+                    // Check if the address already exists
+                    if (cid == -1)
+                    {
+                        CompanyBL company = new CompanyBL(textBox1.Text, richTextBox1.Text, textBox5.Text, addressId);
+
+                        string error;
+                        // Call the InsertAddress function and pass the address object as a parameter
+                        ComapnyInserted = co.InsertCompany(company, out CompId, out error);
+
+                        if (ComapnyInserted)
+                        {
+                            Console.WriteLine("Comapny inserted successfully. Company ID: " + CompId);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to insert the Company. Error: " + error);
+                        }
+                    }
+                    else
+                    {
+                        CompId = cid;
+                    }
+                    if (ComapnyInserted || CompId != -1)
+                    {
+                        ManagerDL m = new ManagerDL();
+                        ManagerBL ma = m.GetManagerbyId(pid);
+                        int ji = 0;
+                        string error = "";
+                        JobBL j = new JobBL();
+                        j.Title = textBox6.Text;
+                        j.Description = richTextBox2.Text;
+                        j.Companyid = CompId;
+                        j.Managerid = ma.Id;
+                        PersonDL p = new PersonDL();
+                        int id = -1;
+                        foreach (PersonBL pe in p.GetAllPersons())
+                        {
+                            if (pe.Email == comboBox1.Text)
+                            {
+                                id = pe.Id;
+                            }
+                        }
+                        ManagerBL me = m.GetManagerbyId(id);
+                        j.Recid = me.Id;
+                        jid = job.InsertJob(j, out ji, out error);
+                        JobSkillDL js = new JobSkillDL();
+                        List<JobSkillBL> sjl = new List<JobSkillBL>();
+                        sjl = js.GetLsitBySkill(s, jid);
+                        string err = "";
+                        js.InsertJobSkill(sjl, out err);
+                        if (jid != -1)
+                        {
+                            MessageBox.Show("Insert Successfully!!");
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error While insert!!");
+                        }
+
+                    }
+                }
             }
         }
     }

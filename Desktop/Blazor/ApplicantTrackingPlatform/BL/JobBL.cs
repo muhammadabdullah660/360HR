@@ -11,6 +11,7 @@ namespace ApplicantTrackingPlatform.BL
         private int id;
         private int companyid;
         private int managerid;
+        private int recid;
         private string title;
         private string description;
 
@@ -19,18 +20,19 @@ namespace ApplicantTrackingPlatform.BL
         public int Managerid { get => managerid; set => managerid = value; }
         public string Title { get => title; set => title = value; }
         public string Description { get => description; set => description = value; }
+        public int Recid { get => recid; set => recid = value; }
 
-        public JobBL(int companyid, int managerid, string title, string description)
+        public JobBL(int companyid, int managerid, string title, string description,int recid)
         {
             this.Companyid = companyid;
             this.Managerid = managerid;
             this.Title = title;
             this.Description = description;
-           
+            this.Recid = recid;
         }
         public JobBL() { }
 
-        public JobBL(int id, int companyid, int managerid, string title, string description):this(companyid,managerid,title,description)
+        public JobBL(int id, int companyid, int managerid, string title, string description,int recid):this(companyid,managerid,title,description,recid)
         {
             this.Id = id;
             

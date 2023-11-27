@@ -57,6 +57,8 @@
     <Compile Include="BL\CourseBL.cs" />
     <Compile Include="BL\EducationBL.cs" />
     <Compile Include="BL\FrndBL.cs" />
+    <Compile Include="BL\InterviewFeedbackBL.cs" />
+    <Compile Include="BL\InterviewSlotBL.cs" />
     <Compile Include="BL\JobApplicantBL.cs" />
     <Compile Include="BL\JobBL.cs" />
     <Compile Include="BL\JobSkillBL.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="DL\CourseDL.cs" />
     <Compile Include="DL\EducationDL.cs" />
     <Compile Include="DL\FrndDL.cs" />
+    <Compile Include="DL\InterviewFeedbackDL.cs" />
+    <Compile Include="DL\InterviewSlotDL.cs" />
     <Compile Include="DL\JobApplicantDL.cs" />
     <Compile Include="DL\JobDL.cs" />
     <Compile Include="DL\JobSkillDL.cs" />
@@ -86,6 +90,12 @@
     <Compile Include="DL\RoleDL.cs" />
     <Compile Include="DL\SkillDL.cs" />
     <Compile Include="DL\WorkDL.cs" />
+    <Compile Include="Forms\AcceptProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AcceptProject.Designer.cs">
+      <DependentUpon>AcceptProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddAchivement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +119,12 @@
     </Compile>
     <Compile Include="Forms\AddEducation.Designer.cs">
       <DependentUpon>AddEducation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddInterview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddInterview.Designer.cs">
+      <DependentUpon>AddInterview.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AddJob.cs">
       <SubType>Form</SubType>
@@ -230,6 +246,12 @@
     <Compile Include="Forms\Status.Designer.cs">
       <DependentUpon>Status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ViewApplicant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ViewApplicant.Designer.cs">
+      <DependentUpon>ViewApplicant.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ViewProject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +284,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AcceptProject.resx">
+      <DependentUpon>AcceptProject.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddAchivement.resx">
       <DependentUpon>AddAchivement.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddEducation.resx">
       <DependentUpon>AddEducation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddInterview.resx">
+      <DependentUpon>AddInterview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddJob.resx">
       <DependentUpon>AddJob.cs</DependentUpon>
@@ -333,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Status.resx">
       <DependentUpon>Status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ViewApplicant.resx">
+      <DependentUpon>ViewApplicant.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewProject.resx">
       <DependentUpon>ViewProject.cs</DependentUpon>

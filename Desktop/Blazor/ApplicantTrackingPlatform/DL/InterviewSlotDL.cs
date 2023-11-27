@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace ApplicantTrackingPlatform.DL
 {
-    internal class SkillDL
+    class InterviewSlotDL
     {
         private string connectionString;
-        public List<SkillBL> Skilllist = new List<SkillBL>();
+        public List<InterviewSlotBL> InterviewSlotlist = new List<InterviewSlotBL>();
 
-        public SkillDL()
+        public InterviewSlotDL()
         {
             connectionString = @"Data Source=(local);Initial Catalog=360HR;Integrated Security=True";
-            LoadSkillData();
+            LoadInterviewSlotData();
         }
 
-        public List<SkillBL> GetAllSkill()
+        public List<InterviewSlotBL> GetAllInterviewSlot()
         {
-            return Skilllist;
+            return InterviewSlotlist;
         }
-        public bool InsertCourse(SkillBL Skill, out string error)
+        public bool InsertInterviewSlot(InterviewSlotBL Skill, out string error)
         {
             error = "";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Skills (ProfileID,Name) VALUES (@ProfileID,@Name)", connection);
+                SqlCommand command = new SqlCommand("INSERT INTO Interviewslot (interviewid,slotdatetime) VALUES (@interviewid,@slotdatetime)", connection);
 
                 // Assuming "address" is an instance of your Address class
-                command.Parameters.AddWithValue("@Name", Skill.Des);
-                command.Parameters.AddWithValue("@ProfileID", Skill.Proid);
+                command.Parameters.AddWithValue("@interviewid", Skill.Jobid);
+                command.Parameters.AddWithValue("@slotdatetime", Skill.Slot);
                 try
                 {
                     // Execute the SQL command and retrieve the newly created address ID
@@ -55,7 +55,7 @@ namespace ApplicantTrackingPlatform.DL
                         connection1.Open();
                         SqlCommand command2 = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection1);
                         //  command.CommandType = CommandType.StoredProcedure;
-                        command2.Parameters.AddWithValue("@FunctionName", "InsertSkill");
+                        command2.Parameters.AddWithValue("@FunctionName", "InsertInterviewSlot");
                         command2.Parameters.AddWithValue("@ExceptionMessage", error);
 
                         // Execute the stored procedure
@@ -66,28 +66,26 @@ namespace ApplicantTrackingPlatform.DL
             }
             return false;
         }
-
-        private void LoadSkillData()
+        private void LoadInterviewSlotData()
         {
-            Skilllist.Clear();
+            InterviewSlotlist.Clear();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("Select * from Skills where Active=1", connection);
+                SqlCommand command = new SqlCommand("Select * from Interviewslot", connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    SkillBL Course = new SkillBL();
-                    Course.Proid = Convert.ToInt32(reader["ProfileID"]);
-                    Course.Des = reader["Name"].ToString();
-                    Skilllist.Add(Course);
+                    InterviewSlotBL Course = new InterviewSlotBL();
+                    Course.Jobid = Convert.ToInt32(reader["interviewid"]);
+                    Course.Slot = reader["slotdatetime"].ToString();
+                    InterviewSlotlist.Add(Course);
                 }
                 reader.Close();
             }
         }
-
-        public bool DeleteSkill(int Achivementid, string name, out string error)
+        public bool Deleteslot(int id, string name, out string error)
         {
             error = "";
 
@@ -96,12 +94,12 @@ namespace ApplicantTrackingPlatform.DL
                 connection.Open();
 
                 // Use parameterized query to avoid SQL injection
-                string query = "UPDATE Skills SET Active = 0 WHERE ProfileID = @ProfileID AND Name=@Name";
+                string query = "Delete from InterviewFeedback WHERE interviewid = @interviewid AND slotdatetime=@slotdatetime";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 // Add parameter
-                command.Parameters.AddWithValue("@ProfileID", Achivementid);
-                command.Parameters.AddWithValue("@Name", name);
+                command.Parameters.AddWithValue("@interviewid", id);
+                command.Parameters.AddWithValue("@slotdatetime", name);
 
 
                 try
@@ -116,7 +114,7 @@ namespace ApplicantTrackingPlatform.DL
                     else
                     {
                         // No rows were updated, meaning the job ID might not exist
-                        error = "No rows were updated.Skill ID may not exist.";
+                        error = "No rows were delete. ID may not exist.";
                         return false;
                     }
                 }
@@ -129,7 +127,7 @@ namespace ApplicantTrackingPlatform.DL
                         connection1.Open();
                         SqlCommand command2 = new SqlCommand("Insert into ExceptionTable (FunctionName,ExceptionMessage) values (@FunctionName,@ExceptionMessage)", connection1);
                         //  command.CommandType = CommandType.StoredProcedure;
-                        command2.Parameters.AddWithValue("@FunctionName", "DeleteSkill");
+                        command2.Parameters.AddWithValue("@FunctionName", "DeleteInterviewSLot");
                         command2.Parameters.AddWithValue("@ExceptionMessage", error);
 
                         // Execute the stored procedure
@@ -141,31 +139,19 @@ namespace ApplicantTrackingPlatform.DL
             }
         }
 
-
-        public SkillBL GetSkillById(int jid)
+        public int GetInterviewSlotId(string name)
         {
-            foreach (SkillBL jo in Skilllist)
+            foreach (InterviewSlotBL jo in InterviewSlotlist)
             {
-                if (jo.Proid == jid)
+                if (jo.Slot == name)
                 {
-                    return jo;
-                }
-            }
-            return null;
-
-        }
-        public int GetSkillId(string name)
-        {
-            foreach (SkillBL jo in Skilllist)
-            {
-                if (jo.Des == name)
-                {
-                    return jo.Proid;
+                    return jo.Jobid;
                 }
             }
             return -1;
 
         }
+
 
     }
 }

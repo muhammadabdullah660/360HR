@@ -108,5 +108,65 @@ namespace ApplicantTrackingPlatform.Forms
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            ManagerDL m = new ManagerDL();
+            ManagerBL ma = m.GetManagerbyId(pid);
+            if (ma != null)
+            {
+                mid = ma.Id;
+                OpenChildForm(new ViewApplicant(pid, mid));
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            ManagerDL m = new ManagerDL();
+            ManagerBL ma = m.GetManagerbyId(pid);
+            if (ma != null)
+            {
+                this.mid = ma.Id;
+                CompanyDL c = new CompanyDL();
+                foreach (CompanyBL co in c.Companylist)
+                {
+                    if (co.Id == ma.Companyid)
+                    {
+                        AddressDL a = new AddressDL();
+
+                        List<AddressBL> al = a.LoadAddresses();
+                        foreach (AddressBL ad in al)
+                        {
+                            if (co.Addressid == ad.Id)
+                            {
+                                //  OpenChildForm(new ManagerProfile(pid, co.Name, co.Description, co.Contact, ad.StreetNo, ad.State, ad.Country));
+                                OpenChildForm(new ManagerProfile(pid, ma.Id));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ManagerDL m = new ManagerDL();
+            ManagerBL ma = m.GetManagerbyId(pid);
+            if (ma != null)
+            {
+                mid = ma.Id;
+                OpenChildForm(new AcceptProject(pid, mid));
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
+            }
+        }
     }
 }

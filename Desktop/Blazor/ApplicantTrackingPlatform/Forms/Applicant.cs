@@ -174,5 +174,24 @@ namespace ApplicantTrackingPlatform.Forms
                 System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
             }
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+            ApplicantDL m = new ApplicantDL();
+            ApplicantBL ma = m.GetApplicantbyId(pid);
+            if (ma != null)
+            {
+                aid = ma.Id;
+
+                OpenChildForm(new ConfirmInterview(pid,aid));
+
+
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
+            }
+        }
     }
 }

@@ -180,6 +180,12 @@
     <Compile Include="Forms\ChangePassword.Designer.cs">
       <DependentUpon>ChangePassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ConfirmInterview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfirmInterview.Designer.cs">
+      <DependentUpon>ConfirmInterview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DiaplayWork.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -328,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ConfirmInterview.resx">
+      <DependentUpon>ConfirmInterview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DiaplayWork.resx">
       <DependentUpon>DiaplayWork.cs</DependentUpon>

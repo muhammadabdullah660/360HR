@@ -31,7 +31,7 @@ namespace ApplicantTrackingPlatform.DL
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Interview (InterviewID,FeedbackText,FeedbackDate) OUTPUT INSERTED.FeedbackID VALUES (@InterviewID,@FeedbackText,@FeedbackDate)", connection);
+                SqlCommand command = new SqlCommand("INSERT INTO InterviewFeedback (InterviewID,FeedbackText,FeedbackDate) OUTPUT INSERTED.FeedbackID VALUES (@InterviewID,@FeedbackText,@FeedbackDate)", connection);
 
                 // Assuming "address" is an instance of your Address class
                 command.Parameters.AddWithValue("@InterviewID", Job.Jid);

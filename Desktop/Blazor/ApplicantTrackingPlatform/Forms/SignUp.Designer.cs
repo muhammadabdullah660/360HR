@@ -131,6 +131,7 @@
             this.txtphone.Name = "txtphone";
             this.txtphone.Size = new System.Drawing.Size(202, 20);
             this.txtphone.TabIndex = 11;
+            this.txtphone.TextChanged += new System.EventHandler(this.txtphone_TextChanged);
             this.txtphone.Validating += new System.ComponentModel.CancelEventHandler(this.txtphone_Validating);
             // 
             // label5

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -57,19 +58,27 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            EducationDL el = new EducationDL();
-            EducationBL ed = new EducationBL(textBox1.Text, textBox3.Text, dateTimePicker1.Value, dateTimePicker2.Value, textBox2.Text, aid);
-            if (el.InsertEducation(ed, out int eid, out string error) != -1)
-            {
-                MessageBox.Show("Inserted Successfully!!");
 
+            if (errorProvider1.GetError(textBox1) != "" && errorProvider1.GetError(textBox2) != "" && errorProvider1.GetError(textBox3) != "" && textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "")
+
+            {
+                EducationDL el = new EducationDL();
+                EducationBL ed = new EducationBL(textBox1.Text, textBox3.Text, dateTimePicker1.Value, dateTimePicker2.Value, textBox2.Text, aid);
+                if (el.InsertEducation(ed, out int eid, out string error) != -1)
+                {
+                    MessageBox.Show("Inserted Successfully!!");
+
+                }
+                else
+                {
+                    MessageBox.Show("Error Occur");
+                }
+                LoadData();
             }
             else
             {
-                MessageBox.Show("Error Occur");
+                MessageBox.Show("Enter Information");
             }
-            LoadData();
-           
 
            
 
@@ -114,6 +123,54 @@ namespace ApplicantTrackingPlatform.Forms
         private void flowLayoutPanel1_Click(object sender, EventArgs e)
         {
           
+        }
+
+        private void textBox1_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox1.Text) && !Regex.IsMatch(textBox1.Text, ".*\\d.*"))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox1, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox1.Focus();
+                errorProvider1.SetError(textBox1, "Invalid");
+            }
+        }
+
+        private void textBox3_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox3.Text) && !Regex.IsMatch(textBox3.Text, ".*\\d.*"))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox3, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox3.Focus();
+                errorProvider1.SetError(textBox3, "Invalid");
+            }
+        }
+
+        private void textBox2_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox2.Text) && !Regex.IsMatch(textBox2.Text, ".*\\d.*"))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox2, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox2.Focus();
+                errorProvider1.SetError(textBox2, "Invalid");
+            }
         }
     }
 }

@@ -168,5 +168,20 @@ namespace ApplicantTrackingPlatform.Forms
                 System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ManagerDL m = new ManagerDL();
+            ManagerBL ma = m.GetManagerbyId(pid);
+            if (ma != null)
+            {
+                mid = ma.Id;
+                OpenChildForm(new ReportAccept(mid));
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("First Complete Profile!!");
+            }
+        }
     }
 }

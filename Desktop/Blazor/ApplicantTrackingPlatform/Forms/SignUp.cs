@@ -184,7 +184,7 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void txtphone_Validating(object sender, CancelEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtphone.Text) && txtphone.Text.Length == 11)
+            if (!string.IsNullOrWhiteSpace(txtphone.Text) && txtphone.Text.Length == 11 && Regex.IsMatch(txtphone.Text, @"\d"))
             {
                 e.Cancel = false;
                 errorProvider1.SetError(txtphone, "");
@@ -280,6 +280,11 @@ namespace ApplicantTrackingPlatform.Forms
         }
 
         private void SignUp_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtphone_TextChanged(object sender, EventArgs e)
         {
 
         }

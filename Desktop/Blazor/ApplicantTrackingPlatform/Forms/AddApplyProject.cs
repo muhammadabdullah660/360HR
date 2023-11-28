@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace ApplicantTrackingPlatform.Forms
 {
@@ -101,16 +102,23 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ProjectApplicantDL pj = new ProjectApplicantDL();
-            ProjectApplicantBL pjb = new ProjectApplicantBL(aid, proid, 1, (float)Convert.ToDecimal(textBox2.Text));
-           if(pj.InsertProjectApplicant(pjb,out int id,out string er)!=-1)
+            if (textBox2.Text != "" && errorProvider1.GetError(textBox2) == "")
             {
-                MessageBox.Show("Your request send Successfully!!");
-                OpenChildForm(new ApplyProject(pid, aid));
+                ProjectApplicantDL pj = new ProjectApplicantDL();
+                ProjectApplicantBL pjb = new ProjectApplicantBL(aid, proid, 1, (float)Convert.ToDecimal(textBox2.Text));
+                if (pj.InsertProjectApplicant(pjb, out int id, out string er) != -1)
+                {
+                    MessageBox.Show("Your request send Successfully!!");
+                    OpenChildForm(new ApplyProject(pid, aid));
+                }
+                else
+                {
+                    MessageBox.Show("Error Occur!");
+                }
             }
             else
             {
-                MessageBox.Show("Error Occur!");
+                MessageBox.Show("Enter Rate!!");
             }
         }
 
@@ -127,6 +135,22 @@ namespace ApplicantTrackingPlatform.Forms
                 }
               
 
+            }
+        }
+
+        private void textBox2_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox2.Text) && int.TryParse(textBox2.Text, out _))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox2, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox2.Focus();
+                errorProvider1.SetError(textBox2, "Invalid");
             }
         }
     }

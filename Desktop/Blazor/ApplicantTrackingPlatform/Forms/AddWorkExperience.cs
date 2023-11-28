@@ -7,9 +7,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ApplicantTrackingPlatform.Forms
 {
@@ -27,85 +29,91 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-            WorkDL man = new WorkDL();
-            AddressDL ad = new AddressDL();
-            int aid = -1;
-            int addressId = -1; // Initialize addressId outside of if blocks
-            bool isSuccess = false; // Initialize isSuccess outside of if blocks
-
-            // Check if the address already exists
-            if (aid == -1)
+            if (errorProvider1.GetError(textBox11) == "" && errorProvider1.GetError(textBox10) == "" && errorProvider1.GetError(textBox8) == "" && errorProvider1.GetError(textBox5) == "" && errorProvider1.GetError(textBox9) == "" && textBox10.Text != "" && textBox11.Text != "" && textBox5.Text != "" && textBox8.Text != "" && textBox9.Text != "")
             {
-                AddressBL address = new AddressBL(textBox4.Text, textBox6.Text, textBox7.Text);
-
-                string error;
-                // Call the InsertAddress function and pass the address object as a parameter
-                isSuccess = ad.InsertAddress(address, out addressId, out error);
-
-                if (isSuccess)
-                {
-                    Console.WriteLine("Address inserted successfully. Address ID: " + addressId);
-                }
-                else
-                {
-                    Console.WriteLine("Failed to insert the address. Error: " + error);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Address already exists. Using existing Address ID: " + aid);
-                addressId = aid;
-            }
-            if (isSuccess || addressId != -1)
-            {
-                CompanyDL co = new CompanyDL();
-                int cid = co.GetCompanyId(textBox11.Text, textBox10.Text, textBox8.Text, addressId);
-
-                int CompId = -1; // Initialize addressId outside of if blocks
-                bool ComapnyInserted = false; // Initialize isSuccess outside of if blocks
+                WorkDL man = new WorkDL();
+                AddressDL ad = new AddressDL();
+                int aid = -1;
+                int addressId = -1; // Initialize addressId outside of if blocks
+                bool isSuccess = false; // Initialize isSuccess outside of if blocks
 
                 // Check if the address already exists
-                if (cid == -1)
+                if (aid == -1)
                 {
-                    CompanyBL company = new CompanyBL(textBox11.Text, textBox10.Text, textBox8.Text, addressId);
+                    AddressBL address = new AddressBL(textBox4.Text, textBox6.Text, textBox7.Text);
 
                     string error;
                     // Call the InsertAddress function and pass the address object as a parameter
-                    ComapnyInserted = co.InsertCompany(company, out CompId, out error);
+                    isSuccess = ad.InsertAddress(address, out addressId, out error);
 
-                    if (ComapnyInserted)
+                    if (isSuccess)
                     {
-                        Console.WriteLine("Comapny inserted successfully. Company ID: " + CompId);
+                        Console.WriteLine("Address inserted successfully. Address ID: " + addressId);
                     }
                     else
                     {
-                        Console.WriteLine("Failed to insert the Company. Error: " + error);
+                        Console.WriteLine("Failed to insert the address. Error: " + error);
                     }
                 }
                 else
                 {
-                    CompId = cid;
+                    Console.WriteLine("Address already exists. Using existing Address ID: " + aid);
+                    addressId = aid;
                 }
-                if (ComapnyInserted || CompId != -1)
+                if (isSuccess || addressId != -1)
                 {
-                    WorkBL m = new WorkBL(CompId,textBox9.Text,(float)Convert.ToDecimal(textBox5.Text),dateTimePicker3.Value,aaid);
-                    int mi = -1;
-                    string err;
-                    if (man.InsertWork(m, out mi, out err) != -1)
-                    {
-                        MessageBox.Show("Work Experience Inserted!!");
+                    CompanyDL co = new CompanyDL();
+                    int cid = co.GetCompanyId(textBox11.Text, textBox10.Text, textBox8.Text, addressId);
 
+                    int CompId = -1; // Initialize addressId outside of if blocks
+                    bool ComapnyInserted = false; // Initialize isSuccess outside of if blocks
+
+                    // Check if the address already exists
+                    if (cid == -1)
+                    {
+                        CompanyBL company = new CompanyBL(textBox11.Text, textBox10.Text, textBox8.Text, addressId);
+
+                        string error;
+                        // Call the InsertAddress function and pass the address object as a parameter
+                        ComapnyInserted = co.InsertCompany(company, out CompId, out error);
+
+                        if (ComapnyInserted)
+                        {
+                            Console.WriteLine("Comapny inserted successfully. Company ID: " + CompId);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to insert the Company. Error: " + error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Error Occur" + err);
+                        CompId = cid;
                     }
-                }
-            
+                    if (ComapnyInserted || CompId != -1)
+                    {
+                        WorkBL m = new WorkBL(CompId, textBox9.Text, (float)Convert.ToDecimal(textBox5.Text), dateTimePicker3.Value, aaid);
+                        int mi = -1;
+                        string err;
+                        if (man.InsertWork(m, out mi, out err) != -1)
+                        {
+                            MessageBox.Show("Work Experience Inserted!!");
 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error Occur" + err);
+                        }
+                    }
+
+
+                }
+                LoadData();
             }
-            LoadData();
+            else
+            {
+                MessageBox.Show("Enter Information");
+            }
 
         }
 
@@ -181,6 +189,102 @@ namespace ApplicantTrackingPlatform.Forms
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void textBox11_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox11.Text))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox11, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox11.Focus();
+                errorProvider1.SetError(textBox11, "Invalid");
+            }
+        }
+
+        private void textBox10_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox10.Text))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox10, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox10.Focus();
+                errorProvider1.SetError(textBox10, "Invalid");
+            }
+        }
+        static bool IsValidEmail(string email)
+        {
+            // Define a regular expression pattern for a simple email validation
+            string pattern = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+
+            // Create a Regex object and match the email against the pattern
+            Regex regex = new Regex(pattern);
+            Match match = regex.Match(email);
+
+            // Return true if the email matches the pattern, otherwise false
+            return match.Success;
+        }
+        private void textBox8_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox8.Text) && IsValidEmail(textBox8.Text))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox8, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox8.Focus();
+                errorProvider1.SetError(textBox8, "Invalid");
+            }
+        }
+
+        private void textBox7_Validating(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void textBox5_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox5.Text) && int.TryParse(textBox5.Text, out _))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox5, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox5.Focus();
+                errorProvider1.SetError(textBox5, "Invalid");
+            }
+        }
+
+        private void textBox9_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox9.Text))
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(textBox9, "");
+
+            }
+            else
+            {
+                e.Cancel = true;
+                textBox9.Focus();
+                errorProvider1.SetError(textBox9, "Invalid");
+            }
         }
     }
 }

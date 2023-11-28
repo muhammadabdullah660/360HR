@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -54,9 +55,11 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelChildForm.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelChildForm
@@ -152,6 +155,7 @@
             this.textBox7.Size = new System.Drawing.Size(136, 22);
             this.textBox7.TabIndex = 23;
             this.textBox7.Text = "Street No";
+            this.textBox7.Validating += new System.ComponentModel.CancelEventHandler(this.textBox7_Validating);
             // 
             // label3
             // 
@@ -197,6 +201,7 @@
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(453, 22);
             this.textBox8.TabIndex = 93;
+            this.textBox8.Validating += new System.ComponentModel.CancelEventHandler(this.textBox8_Validating);
             // 
             // label14
             // 
@@ -217,6 +222,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(455, 22);
             this.textBox5.TabIndex = 91;
+            this.textBox5.Validating += new System.ComponentModel.CancelEventHandler(this.textBox5_Validating);
             // 
             // label8
             // 
@@ -246,6 +252,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(455, 22);
             this.textBox9.TabIndex = 87;
+            this.textBox9.Validating += new System.ComponentModel.CancelEventHandler(this.textBox9_Validating);
             // 
             // textBox10
             // 
@@ -256,6 +263,7 @@
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(453, 22);
             this.textBox10.TabIndex = 86;
+            this.textBox10.Validating += new System.ComponentModel.CancelEventHandler(this.textBox10_Validating);
             // 
             // textBox11
             // 
@@ -266,6 +274,7 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(450, 22);
             this.textBox11.TabIndex = 85;
+            this.textBox11.Validating += new System.ComponentModel.CancelEventHandler(this.textBox11_Validating);
             // 
             // label21
             // 
@@ -366,6 +375,10 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AddWorkExperience
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +393,7 @@
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -412,5 +426,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

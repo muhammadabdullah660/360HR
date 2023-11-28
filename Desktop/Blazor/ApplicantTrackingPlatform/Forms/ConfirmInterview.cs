@@ -151,20 +151,23 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string mes = "I select the " + comboBox1.Text + " for the interview. thank your consideration";
-            InterviewFeedbackDL ife = new InterviewFeedbackDL();
-            InterviewFeedbackBL ifsb = new InterviewFeedbackBL(jid, DateTime.Now, mes);
-            if(ife.InsertInterviewFeedback(ifsb,out int id,out string er)!=-1)
+            if (comboBox1.Text != "")
             {
-                MessageBox.Show("Sucessfully sent!!");
-                comboBox1.Enabled = false;
-                comboBox1.Text = "";
+                string mes = "I select the " + comboBox1.Text + " for the interview. thank your consideration";
+                InterviewFeedbackDL ife = new InterviewFeedbackDL();
+                InterviewFeedbackBL ifsb = new InterviewFeedbackBL(jid, DateTime.Now, mes);
+                if (ife.InsertInterviewFeedback(ifsb, out int id, out string er) != -1)
+                {
+                    MessageBox.Show("Sucessfully sent!!");
+                    comboBox1.Enabled = false;
+                    comboBox1.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
+                LoadData();
             }
-            else
-            {
-                MessageBox.Show("Error");
-            }
-            LoadData();
         }
     }
 }

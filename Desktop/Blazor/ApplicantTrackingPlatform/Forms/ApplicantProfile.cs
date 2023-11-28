@@ -177,50 +177,57 @@ namespace ApplicantTrackingPlatform.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string err;
-            PersonDL p = new PersonDL();
-            PersonBL pe = p.GetPersonById(pid);
-            if (pe.Firstname != textBox7.Text || pe.Lastname != textBox6.Text || pe.MobileNumber != textBox11.Text)
+            if (pictureBox1.Image != null)
             {
-                if (p.UpdatePerson(pid, textBox7.Text, textBox6.Text, textBox11.Text, out err))
+                string err;
+                PersonDL p = new PersonDL();
+                PersonBL pe = p.GetPersonById(pid);
+                if (pe.Firstname != textBox7.Text || pe.Lastname != textBox6.Text || pe.MobileNumber != textBox11.Text)
                 {
-
-                }
-            }
-
-            AddressDL a = new AddressDL();
-            List<AddressBL> adl = a.LoadAddresses();
-            foreach (AddressBL ad in adl)
-            {
-                if (ad.Id == pe.AddressId)
-                {
-                    if (ad.StreetNo != textBox10.Text || ad.State != textBox9.Text || ad.Country != textBox8.Text)
+                    if (p.UpdatePerson(pid, textBox7.Text, textBox6.Text, textBox11.Text, out err))
                     {
-                        if (a.UpdateAddress(pe.AddressId, textBox8.Text, textBox9.Text, textBox10.Text, out String error))
-                        {
-                        }
 
                     }
                 }
-            }
-            bool isfree=false;
-            if(checkBox1.Checked)
-            {
-                isfree = true;
-            }
-            byte[] image = GetImageBytesFromPictureBox(pictureBox1.Image);
-            ApplicantDL man = new ApplicantDL();
-            ApplicantBL m = new ApplicantBL(pid,textBox1.Text,image,isfree);
-            int mi = -1;
-            string erro;
-            if (man.InsertApplicant(m, out mi, out erro) != -1)
-            {
-                MessageBox.Show("User Inserted!!");
 
+                AddressDL a = new AddressDL();
+                List<AddressBL> adl = a.LoadAddresses();
+                foreach (AddressBL ad in adl)
+                {
+                    if (ad.Id == pe.AddressId)
+                    {
+                        if (ad.StreetNo != textBox10.Text || ad.State != textBox9.Text || ad.Country != textBox8.Text)
+                        {
+                            if (a.UpdateAddress(pe.AddressId, textBox8.Text, textBox9.Text, textBox10.Text, out String error))
+                            {
+                            }
+
+                        }
+                    }
+                }
+                bool isfree = false;
+                if (checkBox1.Checked)
+                {
+                    isfree = true;
+                }
+                byte[] image = GetImageBytesFromPictureBox(pictureBox1.Image);
+                ApplicantDL man = new ApplicantDL();
+                ApplicantBL m = new ApplicantBL(pid, textBox1.Text, image, isfree);
+                int mi = -1;
+                string erro;
+                if (man.InsertApplicant(m, out mi, out erro) != -1)
+                {
+                    MessageBox.Show("User Inserted!!");
+
+                }
+                else
+                {
+                    MessageBox.Show("Error Occur" + erro);
+                }
             }
             else
             {
-                MessageBox.Show("Error Occur" + erro);
+                MessageBox.Show("Picture?");
             }
         }
 
@@ -302,6 +309,11 @@ namespace ApplicantTrackingPlatform.Forms
         private void button7_Click(object sender, EventArgs e)
         {
             OpenChildForm(new AddSkills(pid, aid));
+        }
+
+        private void pictureBox1_Validating(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

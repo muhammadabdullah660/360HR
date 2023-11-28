@@ -282,6 +282,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 55;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Validating += new System.ComponentModel.CancelEventHandler(this.pictureBox1_Validating);
             // 
             // tableLayoutPanel2
             // 
